@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 #include <cassert>
 
 #include "random.hpp"
@@ -30,4 +31,5 @@ public:
       identity
     };
   permutation(const int N, const type t = identity);
+  int length() const { return perm.size(); }
 };
