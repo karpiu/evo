@@ -10,7 +10,6 @@ class sga
 public:
   population (*initial_population)();
   bool (*termination)(const population& p);
-  float (*evaluation)(const permutation& p);
   void (*mutation)(population& p);
   void (*crossover)(population& p);
   void (*replacement)(population& p);

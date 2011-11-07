@@ -105,7 +105,6 @@ int main(int argc, char* argv[])
   sga algorithm;
   algorithm.initial_population = initial_population;
   algorithm.termination = termination;
-  algorithm.evaluation = evaluation;
   algorithm.mutation = mutation_function;
   algorithm.crossover = crossover_function;
   algorithm.replacement = replacement;
