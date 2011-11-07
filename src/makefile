@@ -4,9 +4,9 @@ compiler = g++-4.4
 
 modules = random.o permutation.o
 
-output = evo.e
+out = evo.e
 
-all: $(output)
+all: $(out)
 
 random.o: random.cpp random.hpp
 	$(compiler) $(error_flags) $(std_flag) -c random.cpp -o random.o
@@ -14,8 +14,8 @@ random.o: random.cpp random.hpp
 permutation.o: permutation.cpp permutation.hpp
 	$(compiler) $(error_flags) $(std_flag) -c permutation.cpp -o permutation.o
 
-$(output): main.cpp $(modules)
+evo.e: main.cpp $(modules)
 	$(compiler) $(error_flags) $(std_flag) $? -o $@
 
 clear:
-	rm $(output) $(modules)
+	rm $(out) $(modules)
