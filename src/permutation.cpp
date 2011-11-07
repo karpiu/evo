@@ -45,6 +45,16 @@ bool permutation::valid_permutation() const
   return true;
 }
 
+int permutation::elem_position(const int v) const
+{
+  assert(0 <= v);
+  assert(v < N());
+
+  auto i = find(perm.begin(), perm.end(), v);
+  assert(i != perm.end());
+  return i - perm.begin();
+}
+
 std::ostream& operator << (std::ostream& os, const permutation& p)
 {
   os << "[ ";

@@ -35,5 +35,6 @@ public:
     };
   permutation(const int N, const type t = identity);
   int N() const { return perm.size(); }
+  int elem_position(const int v) const;
   friend std::ostream& operator << (std::ostream& os, const permutation& p);
 };
