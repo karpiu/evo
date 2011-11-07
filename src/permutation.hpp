@@ -35,6 +35,7 @@ public:
     };
   permutation(const int N, const type t = identity);
   permutation(const std::vector<int>&);
+  permutation() {} // unused, just for vector::resize shrinking purposes
   int N() const { return perm.size(); }
   const std::vector<int>& P() const { return perm; }
   int elem_position(const int v) const;

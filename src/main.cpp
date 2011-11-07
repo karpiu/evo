@@ -10,6 +10,10 @@ const int population_size = 100;
 const int parents = population_size / 2;
 int N = 5;
 
+const int MAX_N = 100;
+int a[MAX_N][MAX_N];
+int b[MAX_N][MAX_N];
+
 population initial_population()
 {
   population pop;
@@ -20,13 +24,17 @@ population initial_population()
 
 float evaluation(const permutation& p)
 {
-  return 0;
+  int sum = 0;
+  for(int i = 0; i < N; ++i)
+    for(int j = i+1; j < N; ++j)
+      sum += a[i][j] * b[p.P()[i]][p.P()[j]];
+  return sum;
 }
 
 bool termination(const population& p)
 {
   static int iter = 0;
-  return ++iter > 10;
+  return ++iter > 1000;
 }
 
 void mutation_function(population& p)
@@ -72,12 +80,27 @@ void raport(population& p)
 {
   std::cout << "Raporting population\n";
   for(auto i = p.begin(); i != p.end(); ++i)
-    std::cout << *i << std::endl;
+    std::cout << evaluation(*i) << " = " << *i << std::endl;
+}
+
+void read_input()
+{
+  std::cin >> N;
+
+  for(int x = 0; x < N; ++x)
+    for(int y = 0; y < N; ++y)
+      std::cin >> b[x][y];
+
+  for(int x = 0; x < N; ++x)
+    for(int y = 0; y < N; ++y)
+      std::cin >> a[x][y];
 }
 
 int main(int argc, char* argv[])
 {
   init_random();
+
+  read_input();
 
   sga algorithm;
   algorithm.initial_population = initial_population;
