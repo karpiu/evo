@@ -2,7 +2,7 @@
 
 permutation::permutation(const int N, const type t)
 {
-  perm.reserve(N);
+  perm.resize(N);
 
   switch(t)
   {
@@ -18,7 +18,7 @@ permutation::permutation(const int N, const type t)
 void permutation::gen_random_perm()
 {
   for(int i = 0; i < length(); ++i)
-    perm.push_back(i);
+    perm[i] = i;
   for(int i = 0; i < length(); ++i)
     std::swap(perm[i], perm[rand() % (i + 1)]);
 }
@@ -26,7 +26,7 @@ void permutation::gen_random_perm()
 void permutation::gen_identity_perm()
 {
   for(int i = 0; i < length(); ++i)
-    perm.push_back(i);
+    perm[i] = i;
 }
 
 bool permutation::valid_permutation() const
