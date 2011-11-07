@@ -9,10 +9,10 @@ output = evo.e
 all: $(output)
 
 random.o: random.cpp random.hpp
-	$(compiler) $(error_flags) $(std_flag) -c random.cpp $(modules)
+	$(compiler) $(error_flags) $(std_flag) -c random.cpp
 
 permutation.o: permutation.cpp permutation.hpp
-	$(compiler) $(error_flags) $(std_flag) -c permutation.cpp $(modules)
+	$(compiler) $(error_flags) $(std_flag) -c permutation.cpp
 
 $(output): main.cpp $(modules)
 	$(compiler) $(error_flags) $(std_flag) $? -o $@
