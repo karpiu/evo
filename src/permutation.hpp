@@ -24,6 +24,8 @@ class permutation
 private:
   std::vector<int> perm;
   bool valid_permutation() const;
+  void gen_random_perm();
+  void gen_identity_perm();
 public:
   enum type
     {
