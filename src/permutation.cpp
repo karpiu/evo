@@ -55,6 +55,11 @@ int permutation::elem_position(const int v) const
   return i - perm.begin();
 }
 
+void permutation::transpose(const int a, const int b)
+{
+  std::swap(perm[a], perm[b]);
+}
+
 std::ostream& operator << (std::ostream& os, const permutation& p)
 {
   os << "[ ";

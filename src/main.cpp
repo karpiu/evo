@@ -7,5 +7,7 @@ int main(int argc, char* argv[])
   init_random();
   permutation p(5, permutation::type::random);
   std::cout << p << std::endl;
+  p.transpose(1, 2);
+  std::cout << p << std::endl;
   return 0;
 }
