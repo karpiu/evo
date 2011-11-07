@@ -40,6 +40,9 @@ void permutation::gen_identity_perm()
 
 bool permutation::valid_permutation() const
 {
+  if(N() == 0)
+    return false;
+  
   std::vector<bool> is_in(N(), false);
   for(int i = 0; i < N(); ++i)
     if(is_in[perm[i]])
