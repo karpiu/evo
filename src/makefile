@@ -2,7 +2,7 @@ error_flags = -Wall -Werror
 std_flag = -std=c++0x
 compiler = g++-4.4
 
-modules = random.o permutation.o mutation.o
+modules = random.o permutation.o mutation.o crossover.o
 
 out = evo.e
 
@@ -16,6 +16,9 @@ permutation.o: permutation.cpp permutation.hpp
 
 mutation.o: mutation.cpp mutation.hpp
 	$(compiler) $(error_flags) $(std_flag) -c mutation.cpp -o mutation.o
+
+crossover.o: crossover.cpp crossover.hpp
+	$(compiler) $(error_flags) $(std_flag) -c crossover.cpp -o crossover.o
 
 evo.e: main.cpp $(modules)
 	$(compiler) $(error_flags) $(std_flag) $? -o $@
