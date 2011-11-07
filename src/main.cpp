@@ -12,6 +12,11 @@ population initial_population()
   return v;
 }
 
+float evaluation(const permutation& p)
+{
+  return 0;
+}
+
 bool termination(const population& p)
 {
   return true;
@@ -43,6 +48,7 @@ int main(int argc, char* argv[])
   sga algorithm;
   algorithm.initial_population = initial_population;
   algorithm.termination = termination;
+  algorithm.evaluation = evaluation;
   algorithm.mutation = mutation;
   algorithm.crossover = crossover;
   algorithm.replacement = replacement;
