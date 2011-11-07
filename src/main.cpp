@@ -1,9 +1,8 @@
 #include <iostream>
-#include "random.hpp"
+#include "permutation.hpp"
 
 int main(int argc, char* argv[])
 {
-  init_random();
-  std::cout << uniform_random() << std::endl;
+  permutation p(5);
   return 0;
 }
