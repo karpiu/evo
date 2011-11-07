@@ -1,5 +1,16 @@
 #include "crossover.hpp"
 
+std::pair<permutation, permutation> crossover::random_pmx(permutation& p1, permutation& p2)
+{
+  assert(p1.N() == p2.N());
+
+  int r = rand() % p1.N();
+  int s = rand() % p1.N();
+  if(r > s)
+    std::swap(r, s);
+  return partial_matched(p1, p2, r, s);
+}
+
 std::pair<permutation, permutation> crossover::partial_matched(permutation& p1, permutation& p2, int r, int s)
 {
   assert(p1.N() == p2.N());
