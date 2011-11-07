@@ -1,14 +1,20 @@
 #pragma once
 
-#include <array>
+#include <vector>
 #include <cassert>
 
-// permutations of N elements
-template<int N>
-  class permutation
+#include "random.hpp"
+
+class permutation
 {
 private:
-  std::array<int, N> perm;
+  std::vector<int> perm;
   bool valid_permutation() const;
 public:
+  enum type
+    {
+      random,
+      identity
+    };
+  permutation(const int N, const type t = identity);
 };
