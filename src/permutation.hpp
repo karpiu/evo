@@ -34,6 +34,7 @@ public:
       identity
     };
   permutation(const int N, const type t = identity);
+  permutation(const std::vector<int>&);
   int N() const { return perm.size(); }
   int elem_position(const int v) const;
   void transpose(const int a, const int b);

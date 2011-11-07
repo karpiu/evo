@@ -1,5 +1,12 @@
 #include "permutation.hpp"
 
+permutation::permutation(const std::vector<int>& v)
+{
+  perm.reserve(v.size());
+  std::copy(v.begin(), v.end(), back_inserter(perm));
+  assert(valid_permutation());
+}
+
 permutation::permutation(const int N, const type t)
 {
   perm.resize(N);
