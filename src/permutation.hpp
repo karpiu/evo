@@ -36,6 +36,7 @@ public:
   permutation(const int N, const type t = identity);
   permutation(const std::vector<int>&);
   int N() const { return perm.size(); }
+  const std::vector<int>& P() const { return perm; }
   int elem_position(const int v) const;
   void transpose(const int a, const int b);
   friend std::ostream& operator << (std::ostream& os, const permutation& p);
