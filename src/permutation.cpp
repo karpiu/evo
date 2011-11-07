@@ -33,3 +33,12 @@ bool permutation::valid_permutation() const
 {
   return true;
 }
+
+std::ostream& operator << (std::ostream& os, const permutation& p)
+{
+  os << "[ ";
+  for(auto i = p.perm.begin(); i != p.perm.end(); ++i)
+    os << *i << ' ';
+  os << ']';
+  return os;
+}
