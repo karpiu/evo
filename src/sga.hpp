@@ -3,15 +3,17 @@
 #include <vector>
 #include "permutation.hpp"
 
+typedef std::vector<permutation> population;
+
 class sga
 {
 public:
-  typedef std::vector<permutation> population;
   population (*initial_population)();
-  bool (*termination_condition)(const population& p);
+  bool (*termination)(const population& p);
   void (*mutation)(population& p);
   void (*crossover)(population& p);
   void (*replacement)(population& p);
+  void (*raport)(population& p);
 
   void run();
 };
