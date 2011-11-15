@@ -51,7 +51,7 @@ std::pair<permutation, permutation> crossover::random_ox(permutation& p1, permut
 	return std::make_pair(permutation(result1), permutation(result2));
 }
 
-std::pair<permutation, permutation> crossover::random_cx(permutation& p1, permutation& p2)
+std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& p2)
 {
 	assert(p1.N() == p2.N());
 
@@ -61,10 +61,57 @@ std::pair<permutation, permutation> crossover::random_cx(permutation& p1, permut
   if(r > s)
     std::swap(r, s);
 	
-	std::vector<int> result1(p1.P().begin(), p1.P().end());
-	std::vector<int> result2(p2.P().begin(), p2.P().end());
+	std::vector<int> result1,result2;
+	int *cycle = new int[n];
+	int *rev_p1 = new int[n];
 
+	// calculating reverse array for p1
+	for(int i=0; i<n; i++)
+		rev_p1[p1.P()[i]] = i;
+			
+	// breaking two permutations into cycles
+	int perm_count = 0;	
+	for(int i=0; i<n; i++)
+	{
+		if(cycle[i] != 0)
+			continue;
 
+		perm_count++;
+		int first = i;
+		int act = first;
+		int next = rev_p1[p2.P()[act]];
+
+		// excluding identity cycle		
+		if(next == first) perm_count--;
+		
+		cycle[act] = perm_count;		
+		while( next != first )
+		{			
+			act = next;
+			next = rev_p1[p2.P()[act]];
+			cycle[act] = perm_count;
+		}
+	}	
+	
+	// producing childeren
+	for(int i=0; i<n; i++)
+	{
+		if(cycle[i] & 1) // oddity test
+		{
+			result1.push_back(p1.P()[i]);
+			result2.push_back(p2.P()[i]);
+		}
+		else
+		{
+			result1.push_back(p2.P()[i]);
+			result2.push_back(p1.P()[i]);
+		}
+	}
+	
+	//clean-up	
+	delete [] cycle;
+	delete [] rev_p1;
+	
 	return std::make_pair(permutation(result1), permutation(result2));
 }
 
