@@ -70,7 +70,10 @@ void mutation_function(population& p)
 		float r = rand()/RAND_MAX; // random float between <0,1)
 		
 		if(r < prob)
+		{
     	mutation::random_transposition(i->perm);
+			i->eval = evaluation(i->perm); // after mutation is done we have to evaluate this specimen again	
+		}
   }
 }
 
