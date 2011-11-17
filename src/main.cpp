@@ -67,7 +67,7 @@ void mutation_function(population& p)
   for(auto i = p.begin(); i != p.end(); ++i)
   {
     float prob = 1 - i->adapt; // probability of mutation
-    float r = rand()/RAND_MAX; // random float between <0,1)
+    float r = uniform_random(); // random float between <0,1)
 
     if(r < prob)
     {
