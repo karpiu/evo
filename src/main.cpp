@@ -93,11 +93,13 @@ void crossover_function(population& p)
 
     auto desc = crossover::random_crossover(crossover::PMX, p[i].perm, p[j].perm);
 
-    // adapt and eval members of ch1 and ch2 are not initialized
-    // as those will be evaluated right after crossover in sga
     specimen ch1, ch2;
     ch1.perm = desc.first;
+    ch1.eval = evaluation(ch1.perm);
+    ch1.adapt = 0.0;
     ch2.perm = desc.second;
+    ch2.eval = evaluation(ch2.perm);
+    ch2.adapt = 0.0;
 
     new_population.push_back(ch1);
     new_population.push_back(ch2);
