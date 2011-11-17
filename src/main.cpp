@@ -89,7 +89,7 @@ void crossover_function(population& p)
     if(abs(p[i].adapt - p[j].adapt) > 0.2)
       continue;
 
-    auto desc = crossover::random_pmx(p[i].perm, p[j].perm);
+    auto desc = crossover::random_crossover(crossover::PMX, p[i].perm, p[j].perm);
 
     specimen ch1, ch2;
     ch1.perm = desc.first;

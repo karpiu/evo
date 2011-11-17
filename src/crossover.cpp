@@ -1,6 +1,6 @@
 #include "crossover.hpp"
 
-std::pair<permutation, permutation> crossover::random_ox(permutation& p1, permutation& p2)
+std::pair<permutation, permutation> crossover::random_crossover(crossover::type t, permutation& p1, permutation& p2)
 {
   assert(p1.N() == p2.N());
 
@@ -10,6 +10,21 @@ std::pair<permutation, permutation> crossover::random_ox(permutation& p1, permut
   if(r > s)
     std::swap(r, s);
 
+  switch(t)
+  {
+    case OX:
+      return ox(p1, p2, r, s);
+    case CX:
+      return cx(p1, p2, r, s);
+    case PMX:
+    default: // this line is only for compiler's happiness
+      return pmx(p1, p2, r, s);
+  }
+}
+
+std::pair<permutation, permutation> crossover::ox(permutation& p1, permutation& p2, int r, int s)
+{
+  int n = p1.N();
   std::vector<int> result1(p1.P().begin(), p1.P().end());
   std::vector<int> tmp1(p1.P().begin(), p1.P().end()); // copy parent 1 for computing second child
   std::vector<int> result2(p2.P().begin(), p2.P().end());
@@ -51,17 +66,10 @@ std::pair<permutation, permutation> crossover::random_ox(permutation& p1, permut
   return std::make_pair(permutation(result1), permutation(result2));
 }
 
-std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& p2)
+std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& p2, int r, int s)
 {
-  assert(p1.N() == p2.N());
-
-  int n = p1.N();
-  int r = rand() % n;
-  int s = rand() % n;
-  if(r > s)
-    std::swap(r, s);
-
   std::vector<int> result1,result2;
+  int n = p1.N();
   int *cycle = new int[n];
   int *rev_p1 = new int[n];
 
@@ -115,18 +123,7 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
   return std::make_pair(permutation(result1), permutation(result2));
 }
 
-std::pair<permutation, permutation> crossover::random_pmx(permutation& p1, permutation& p2)
-{
-  assert(p1.N() == p2.N());
-
-  int r = rand() % p1.N();
-  int s = rand() % p1.N();
-  if(r > s)
-    std::swap(r, s);
-  return partial_matched(p1, p2, r, s);
-}
-
-std::pair<permutation, permutation> crossover::partial_matched(permutation& p1, permutation& p2, int r, int s)
+std::pair<permutation, permutation> crossover::pmx(permutation& p1, permutation& p2, int r, int s)
 {
   assert(p1.N() == p2.N());
 
