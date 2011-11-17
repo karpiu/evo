@@ -14,9 +14,6 @@ const int MAX_N = 100;
 int a[MAX_N][MAX_N];
 int b[MAX_N][MAX_N];
 
-std::vector<float> evaluation_set;
-std::vector<float> adaptation_set;
-
 population initial_population()
 {
   population pop;
