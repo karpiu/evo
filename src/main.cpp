@@ -46,7 +46,7 @@ bool elav_comp(specimen a, specimen b) { return a.eval<b.eval; }
 
 void adapt_population(population& p)
 {
-	float F_min = (*min_element(p.begin(),p.end(),elav_comp)).eval;
+	float F_min = min_element(p.begin(),p.end(),elav_comp)->eval;
 	for(int i=0; i<population_size; i++)
 	{
 		float sum = 0.0;
@@ -66,7 +66,11 @@ void mutation_function(population& p)
 {
   for(auto i = p.begin(); i != p.end(); ++i)
   {
-    mutation::random_transposition((*i).perm);
+		float prob = 1 - i->adapt; // probability of mutation
+		float r = rand()/RAND_MAX; // random float between <0,1)
+		
+		if(r < prob)
+    	mutation::random_transposition(i->perm);
   }
 }
 
@@ -113,7 +117,7 @@ void raport(population& p)
   std::cout << "Raporting population\n";
 	std::sort(p.begin(), p.end(), eval_cmp());
   for(auto i = p.begin(); i != p.end(); ++i)
-    std::cout << (*i).eval << " = " << (*i).perm << std::endl;
+    std::cout << i->eval << " = " << i->perm << std::endl;
 }
 
 void read_input()
