@@ -65,7 +65,7 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
   int *cycle = new int[n];
   int *rev_p1 = new int[n];
 
-  // calculating reverse array for p1
+  // calculating reverse permutation of p1
   for(int i=0; i<n; i++)
     rev_p1[p1.P()[i]] = i;
 
