@@ -18,13 +18,13 @@ population initial_population()
 {
   population pop;
   for(int i = 0; i < population_size; ++i)
-	{
-		specimen s;
-		s.perm = permutation(N, permutation::type::random);
-		s.eval = s.adapt = 0.0;    
-		pop.push_back(s);
-	}  
-	return pop;
+  {
+    specimen s;
+    s.perm = permutation(N, permutation::type::random);
+    s.eval = s.adapt = 0.0;
+    pop.push_back(s);
+  }
+  return pop;
 }
 
 float evaluation(const permutation& p)
@@ -38,22 +38,22 @@ float evaluation(const permutation& p)
 
 void evaluate_population(population& p)
 {
-	for(unsigned int i=0; i<p.size(); i++)
-		p[i].eval = evaluation(p[i].perm);
+  for(unsigned int i=0; i<p.size(); i++)
+    p[i].eval = evaluation(p[i].perm);
 }
 
 bool elav_comp(specimen a, specimen b) { return a.eval<b.eval; }
 
 void adapt_population(population& p)
 {
-	float F_min = min_element(p.begin(),p.end(),elav_comp)->eval;
-	for(unsigned int i=0; i<p.size(); i++)
-	{
-		float sum = 0.0;
-		for(unsigned int j=0; j<p.size(); j++)
-			sum += p[j].eval - F_min;
-		p[i].adapt = (p[i].eval - F_min)/sum;
-	}
+  float F_min = min_element(p.begin(),p.end(),elav_comp)->eval;
+  for(unsigned int i=0; i<p.size(); i++)
+  {
+    float sum = 0.0;
+    for(unsigned int j=0; j<p.size(); j++)
+      sum += p[j].eval - F_min;
+    p[i].adapt = (p[i].eval - F_min)/sum;
+  }
 }
 
 bool termination(const population& p)
@@ -66,14 +66,14 @@ void mutation_function(population& p)
 {
   for(auto i = p.begin(); i != p.end(); ++i)
   {
-		float prob = 1 - i->adapt; // probability of mutation
-		float r = rand()/RAND_MAX; // random float between <0,1)
-		
-		if(r < prob)
-		{
-    	mutation::random_transposition(i->perm);
-			i->eval = evaluation(i->perm); // after mutation is done we have to evaluate this specimen again	
-		}
+    float prob = 1 - i->adapt; // probability of mutation
+    float r = rand()/RAND_MAX; // random float between <0,1)
+
+    if(r < prob)
+    {
+      mutation::random_transposition(i->perm);
+      i->eval = evaluation(i->perm); // after mutation is done we have to evaluate this specimen again
+    }
   }
 }
 
@@ -83,21 +83,21 @@ void crossover_function(population& p)
 
   for(int i = 0; i < parents; ++i)
   {
-		const int i = rand() % population_size;
+    const int i = rand() % population_size;
     const int j = rand() % population_size;
-		
-		if(abs(p[i].adapt - p[j].adapt) > 0.2)
-			continue;
-		
+
+    if(abs(p[i].adapt - p[j].adapt) > 0.2)
+      continue;
+
     auto desc = crossover::random_pmx(p[i].perm, p[j].perm);
-		
-		specimen ch1, ch2;
-		ch1.perm = desc.first; 
-		ch1.eval = evaluation(ch1.perm);
-		ch1.adapt = 0.0;
-		ch2.perm = desc.second;
-		ch2.eval = evaluation(ch2.perm);
-		ch2.adapt = 0.0;
+
+    specimen ch1, ch2;
+    ch1.perm = desc.first;
+    ch1.eval = evaluation(ch1.perm);
+    ch1.adapt = 0.0;
+    ch2.perm = desc.second;
+    ch2.eval = evaluation(ch2.perm);
+    ch2.adapt = 0.0;
 
     new_population.push_back(ch1);
     new_population.push_back(ch2);
@@ -123,7 +123,7 @@ void replacement(population& p)
 void raport(population& p)
 {
   std::cout << "Raporting population\n";
-	std::sort(p.begin(), p.end(), eval_cmp());
+  std::sort(p.begin(), p.end(), eval_cmp());
   for(auto i = p.begin(); i != p.end(); ++i)
     std::cout << i->eval << " = " << i->perm << std::endl;
 }
@@ -149,8 +149,8 @@ int main(int argc, char* argv[])
 
   sga algorithm;
   algorithm.initial_population = initial_population;
-	algorithm.evaluate = evaluate_population;
-	algorithm.adaptation = adapt_population;
+  algorithm.evaluate = evaluate_population;
+  algorithm.adaptation = adapt_population;
   algorithm.termination = termination;
   algorithm.mutation = mutation_function;
   algorithm.crossover = crossover_function;
