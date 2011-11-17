@@ -86,7 +86,9 @@ void crossover_function(population& p)
     const int i = rand() % population_size;
     const int j = rand() % population_size;
 
-    if(abs(p[i].adapt - p[j].adapt) > 0.2)
+    const float crossover_prob = 0.2f;
+
+    if(abs(p[i].adapt - p[j].adapt) > crossover_prob)
       continue;
 
     auto desc = crossover::random_crossover(crossover::PMX, p[i].perm, p[j].perm);
