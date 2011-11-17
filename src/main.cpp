@@ -80,10 +80,13 @@ void crossover_function(population& p)
 
   for(int i = 0; i < parents; ++i)
   {
-    const int a = rand() % N;
-    const int b = rand() % N;
-
-    auto desc = crossover::random_pmx(p[a].perm, p[b].perm);
+		const int i = rand() % population_size;
+    const int j = rand() % population_size;
+		
+		if(abs(p[i].adapt - p[j].adapt) > 0.2)
+			continue;
+		
+    auto desc = crossover::random_pmx(p[i].perm, p[j].perm);
 		
 		specimen ch1, ch2;
 		ch1.perm = desc.first; 
