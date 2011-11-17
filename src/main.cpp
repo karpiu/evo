@@ -38,7 +38,7 @@ float evaluation(const permutation& p)
 
 void evaluate_population(population& p)
 {
-	for(int i=0; i<population_size; i++)
+	for(unsigned int i=0; i<p.size(); i++)
 		p[i].eval = evaluation(p[i].perm);
 }
 
@@ -47,10 +47,10 @@ bool elav_comp(specimen a, specimen b) { return a.eval<b.eval; }
 void adapt_population(population& p)
 {
 	float F_min = min_element(p.begin(),p.end(),elav_comp)->eval;
-	for(int i=0; i<population_size; i++)
+	for(unsigned int i=0; i<p.size(); i++)
 	{
 		float sum = 0.0;
-		for(int j=0; j<population_size; j++)
+		for(unsigned int j=0; j<p.size(); j++)
 			sum += p[j].eval - F_min;
 		p[i].adapt = (p[i].eval - F_min)/sum;
 	}
@@ -90,9 +90,11 @@ void crossover_function(population& p)
 		
 		specimen ch1, ch2;
 		ch1.perm = desc.first; 
-		ch1.eval = ch1.adapt = 0.0;
+		ch1.eval = evaluation(ch1.perm);
+		ch1.adapt = 0.0;
 		ch2.perm = desc.second;
-		ch2.eval = ch2.adapt = 0.0;
+		ch2.eval = evaluation(ch2.perm);
+		ch2.adapt = 0.0;
 
     new_population.push_back(ch1);
     new_population.push_back(ch2);
@@ -105,7 +107,7 @@ struct eval_cmp
 {
   bool operator()(const specimen& s1, const specimen& s2) const
   {
-    return std::less<float>()(s1.eval, s2.eval);
+    return std::less<float>()(s2.adapt, s1.adapt);
   }
 };
 

@@ -7,9 +7,11 @@ void sga::run()
 	while(!termination(p))
   {
 		adaptation(p);
-    crossover(p);
-    mutation(p);
-    replacement(p);
+		crossover(p);
+		adaptation(p);
+		mutation(p);
+		adaptation(p);
+		replacement(p);
 		evaluate(p);
   }
   raport(p);
