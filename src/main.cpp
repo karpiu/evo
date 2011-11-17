@@ -42,11 +42,11 @@ void evaluate_population(population& p)
     p[i].eval = evaluation(p[i].perm);
 }
 
-bool elav_comp(specimen a, specimen b) { return a.eval<b.eval; }
+bool eval_comp(specimen a, specimen b) { return a.eval<b.eval; }
 
 void adapt_population(population& p)
 {
-  float F_min = min_element(p.begin(),p.end(),elav_comp)->eval;
+  float F_min = min_element(p.begin(),p.end(),eval_comp)->eval;
   for(unsigned int i=0; i<p.size(); i++)
   {
     float sum = 0.0;
