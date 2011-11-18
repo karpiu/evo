@@ -24,7 +24,7 @@ sga.o: sga.cpp sga.hpp
 	$(compiler) $(error_flags) $(std_flag) -c sga.cpp -o sga.o
 
 evo.e: main.cpp $(modules)
-	$(compiler) $(error_flags) $(std_flag) $? -o $@
+	$(compiler) $(error_flags) $(std_flag) main.cpp $(modules) -o evo.e
 
 clear:
 	rm $(out) $(modules)
