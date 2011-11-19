@@ -2,17 +2,10 @@
 
 std::pair<permutation, permutation> crossover::random_crossover(crossover::type t, permutation& p1, permutation& p2)
 {
-<<<<<<< HEAD
-	assert(p1.N() == p2.N());
-
-	int n = p1.N();
-	int r = rand() % n;
-=======
   assert(p1.N() == p2.N());
 
   int n = p1.N();
   int r = rand() % n;
->>>>>>> FETCH_HEAD
   int s = rand() % n;
   if(r > s)
     std::swap(r, s);
