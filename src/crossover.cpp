@@ -3,7 +3,7 @@
 std::pair<permutation, permutation> crossover::random_ox(permutation& p1, permutation& p2)
 {
 	assert(p1.N() == p2.N());
-	
+
 	int n = p1.N();
 	int r = rand() % n;
   int s = rand() % n;
