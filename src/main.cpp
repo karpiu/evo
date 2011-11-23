@@ -8,11 +8,13 @@
 
 const int population_size = 100;
 const int parents = population_size / 2;
-int N = 5;
+
+int N = 5;  // number of jobs
+int M = 5;  // number of machines
 
 const int MAX_N = 100;
-int a[MAX_N][MAX_N];
-int b[MAX_N][MAX_N];
+const int MAX_M = 20;
+int a[MAX_M][MAX_N]; // input data
 
 population initial_population()
 {
@@ -29,11 +31,16 @@ population initial_population()
 
 float evaluation(const permutation& p)
 {
-  int sum = 0;
-  for(int i = 0; i < N; ++i)
-    for(int j = i+1; j < N; ++j)
-      sum += a[i][j] * b[p.P()[i]][p.P()[j]];
-  return sum;
+  int time = 0;
+  
+  std::queue<int> q(p.P()); //  jobs queue
+  flow_shop machines(M);   
+  
+  while( !q.empty() && !machines.finished() ) {
+    
+  }
+  
+  return time;
 }
 
 void evaluate_population(population& p)
@@ -133,14 +140,20 @@ void raport(population& p)
 void read_input()
 {
   std::cin >> N;
+  std::cin >> M;
 
-  for(int x = 0; x < N; ++x)
-    for(int y = 0; y < N; ++y)
-      std::cin >> b[x][y];
-
-  for(int x = 0; x < N; ++x)
+  for(int x = 0; x < M; ++x)
     for(int y = 0; y < N; ++y)
       std::cin >> a[x][y];
+  
+  //std::cout<< N << " " << M << std::endl;
+  //for(int x = 0; x < M; ++x)
+  //{
+  //  for(int y = 0; y < N; ++y)
+  //    std::cout << a[x][y] << " ";
+  //  std::cout << "\n";
+  //}  
+  //exit(0);
 }
 
 int main(int argc, char* argv[])
