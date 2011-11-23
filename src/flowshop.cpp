@@ -66,3 +66,12 @@ bool flowshop::isDone()
 {
   return idle;
 }
+
+std::ostream& operator << (std::ostream& os, const flowshop& f)
+{
+  os << "[ ";
+  for(auto i = f.machs.begin(); i != f.machs.end(); ++i)
+    os << "("<< i->job << "/" << i->countdown << ") ";
+  os << "]";
+  return os;
+}
