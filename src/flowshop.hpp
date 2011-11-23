@@ -13,8 +13,13 @@ class flowshop
 {
     std::vector<machine> machs;
     unsigned long time;
-  
+    int size;
+    bool idle;    
+    
   public:
     flowshop(int m);
     ~flowshop() {}
+
+    void update();
+    bool isDone();
 }
