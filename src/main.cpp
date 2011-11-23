@@ -32,15 +32,7 @@ population initial_population()
 float evaluation(const permutation& p)
 {
   std::queue<int> q(p.P()); //  jobs queue
-
-  f.clear_flow();
-  
-  while( !q.empty() && !f.is_done() ) {
-    if( !q.empty() && f.is_ready() ) {
-      f.add_job(q.pop());
-    }
-    f.update();
-  }
+  f.run(q);
   
   return f.get_time();
 }

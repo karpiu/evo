@@ -24,6 +24,12 @@ struct machine
   }
 };
 
+/*
+ * flowshop class:
+ * - represantation of M machines
+ * - simulation of flow-shop jobs evaluation
+ */
+
 class flowshop
 {
     std::vector<machine> machs;
@@ -34,6 +40,8 @@ class flowshop
   public:
     flowshop(int n, int m);
     ~flowshop() {}
+    
+    void run(std::queue<int> &q);
 
     void add_job();    
     void update();

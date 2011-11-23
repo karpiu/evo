@@ -64,7 +64,7 @@ void flowshop::update()
 void flowshop::add_job(int job)
 {
   assert(is_ready());
-  
+  /////////
 }
 
 void flowshop::clear_flow()
@@ -76,6 +76,21 @@ void flowshop::clear_flow()
   }
   idle = true;
   time = 0;
+}
+
+// simulation start
+void flowshop::run(std::queue<int> &q)
+{
+  ////// add assertions  
+
+  f.clear_flow();
+  
+  while( !q.empty() && !f.is_done() ) {
+    if( !q.empty() && f.is_ready() ) {
+      f.add_job(q.pop());
+    }
+    f.update();
+  }
 }
 
 std::ostream& operator << (std::ostream& os, const flowshop& f)
