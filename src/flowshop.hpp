@@ -5,9 +5,23 @@
 
 struct machine 
 {
-    int job;  // job id
-    bool is_working;  // is it working on some job?
-    int countdown; // time to completion
+  int job;  // job id
+  bool is_working;  // is it working on some job?
+  int countdown; // time to completion
+  int * time_table;
+  
+  machine(int jobs)
+  {
+    job = 0;
+    is_working = false;
+    contdown = 0;
+    time_table = new int[jobs];
+  }
+  
+  ~machine()
+  {
+    delete [] time_table;
+  }
 };
 
 class flowshop
@@ -18,9 +32,15 @@ class flowshop
     bool idle;    
     
   public:
-    flowshop(int m);
+    flowshop(int n, int m);
     ~flowshop() {}
 
+    void add_job();    
     void update();
-    bool isDone();
-}
+    void clear_flow();
+
+    bool is_done() { return idle; };
+    bool is_ready() { return ! machs[0].is_working; }; 
+    unsigned long get_time() { return time; };
+};
+

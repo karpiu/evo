@@ -2,16 +2,15 @@
 #include "flowshop.hpp"
 
 // initiate flowshop-state-machine with 'm' machines that are idle.
-flowshop::flowshop(int m)
+flowshop::flowshop(int n, int m)
 {
+  assert(m > 0);
+
   size = m;
 
   while(m--)
   {
-    machine mach;
-    mach.job = 0;
-    mach.is_working = false;
-    mach.countdown = 0;
+    machine mach(n);
     machs.push_back(mach);  
   }
   idle = true;
@@ -62,9 +61,21 @@ void flowshop::update()
 }
 
 
-bool flowshop::isDone()
+void flowshop::add_job(int job)
 {
-  return idle;
+  assert(is_ready());
+  
+}
+
+void flowshop::clear_flow()
+{
+  for(int i=0; i<size; i++) {
+    machs[i].job = 0;
+    machs[i].is_working = false;
+    machs[i].countdown = 0;  
+  }
+  idle = true;
+  time = 0;
 }
 
 std::ostream& operator << (std::ostream& os, const flowshop& f)

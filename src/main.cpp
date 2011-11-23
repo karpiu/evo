@@ -31,16 +31,18 @@ population initial_population()
 
 float evaluation(const permutation& p)
 {
-  int time = 0;
-  
   std::queue<int> q(p.P()); //  jobs queue
-  flow_shop machines(M);   
+
+  f.clear_flow();
   
-  while( !q.empty() && !machines.finished() ) {
-    
+  while( !q.empty() && !f.is_done() ) {
+    if( !q.empty() && f.is_ready() ) {
+      f.add_job(q.pop());
+    }
+    f.update();
   }
   
-  return time;
+  return f.get_time();
 }
 
 void evaluate_population(population& p)
@@ -146,14 +148,6 @@ void read_input()
     for(int y = 0; y < N; ++y)
       std::cin >> a[x][y];
   
-  //std::cout<< N << " " << M << std::endl;
-  //for(int x = 0; x < M; ++x)
-  //{
-  //  for(int y = 0; y < N; ++y)
-  //    std::cout << a[x][y] << " ";
-  //  std::cout << "\n";
-  //}  
-  //exit(0);
 }
 
 int main(int argc, char* argv[])
