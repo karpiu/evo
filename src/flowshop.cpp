@@ -12,23 +12,24 @@ flowshop::flowshop()
 flowshop::flowshop(int n, int m)
 {
   size = m;
-
+  
+  machine* mach = 0;
   while(m--)
   {
-    machine mach(n);
-    machs.push_back(mach);  
+    mach = new machine(n);  
+    machs.push_back(*mach);
   }
   idle = true;
   time = 0;
 }
 
-flowshop(const flowshop &f)
-{
-  if(this != f) {
+flowshop::flowshop( const flowshop &f )
+{  
+  if(this != &f) {
     time = f.time;
     idle = f.idle;
     size = f.size;
-    machs = vector<machine>(f.machs);
+    machs = std::vector<machine>(f.machs);
   }
 }
 
@@ -39,17 +40,16 @@ void flowshop::update()
   time++;
   
   // count for non-working machines
-  int not_working = 0;
-
+  unsigned int not_working = 0;
+  
   for(int i=size-1; i>=0; i--)
   {
     if(machs[i].is_working) 
     {
-      
       if(machs[i].countdown == 0)
       {
         // if the job is done on this machine, we try to put it on the next machine
-        if( i == size-1 )
+        if( i == (int)size-1 )
         {
           // if job on the last machine is finished we just flag this machine
           machs[i].is_working = false;
@@ -58,7 +58,7 @@ void flowshop::update()
           // next machine is ready to take the new job
           machs[i+1].is_working = true;
           machs[i+1].job = machs[i].job;
-          machs[i+1].countdown = ; ////////
+          machs[i+1].countdown = machs[i+1].time_table[machs[i+1].job]; 
           machs[i].is_working = false;
           machs[i].job = 0;
         }
@@ -80,13 +80,17 @@ void flowshop::update()
 
 void flowshop::add_job(int job)
 {
-  assert(is_ready());
-  /////////
+  machs[0].job = job;
+  machs[0].is_working = true;
+  machs[0].countdown = machs[0].time_table[job];
+  
+  if(idle)
+    idle = false;
 }
 
 void flowshop::clear_flow()
 {
-  for(int i=0; i<size; i++) {
+  for(unsigned int i=0; i<size; i++) {
     machs[i].job = 0;
     machs[i].is_working = false;
     machs[i].countdown = 0;  
@@ -103,13 +107,15 @@ void flowshop::run(std::queue<int> &q)
   if(q.empty())
     return;  
   
-  add_job(q.pop());
-
-  while( !q.empty() && !is_done() ) {
-    if( !q.empty() && is_ready() ) {
-      add_job(q.pop());
-    }
+  add_job(q.front()); 
+  q.pop();
+  
+  while( !q.empty() || !is_done() ) {
     update();
+    if( !q.empty() && is_ready() ) {
+      add_job(q.front());
+      q.pop();
+    }
   }
 }
 
