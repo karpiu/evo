@@ -5,16 +5,16 @@
 #include "sga.hpp"
 #include "mutation.hpp"
 #include "crossover.hpp"
+#include "flowshop.hpp"
 
 const int population_size = 100;
 const int parents = population_size / 2;
 
-int N = 5;  // number of jobs
-int M = 5;  // number of machines
+int N;  // number of jobs
+int M;  // number of machines
 
-const int MAX_N = 100;
-const int MAX_M = 20;
-int a[MAX_M][MAX_N]; // input data
+flowshop f;
+
 
 population initial_population()
 {
@@ -31,7 +31,11 @@ population initial_population()
 
 float evaluation(const permutation& p)
 {
-  std::queue<int> q(p.P()); //  jobs queue
+  std::queue<int> q; //  jobs queue
+  
+  for(auto i=p.P().begin(); i!=p.P().end(); ++i)
+    q.push(*i);
+
   f.run(q);
   
   return f.get_time();
@@ -135,11 +139,12 @@ void read_input()
 {
   std::cin >> N;
   std::cin >> M;
+  
+  f = flowshop(N,M);
 
   for(int x = 0; x < M; ++x)
     for(int y = 0; y < N; ++y)
-      std::cin >> a[x][y];
-  
+      std::cin >> f[x][y];  
 }
 
 int main(int argc, char* argv[])
