@@ -1,11 +1,16 @@
 
 #include "flowshop.hpp"
 
+flowshop::flowshop()
+{
+  size = 0;
+  idle = true;
+  time = 0;
+}
+
 // initiate flowshop-state-machine with 'm' machines that are idle.
 flowshop::flowshop(int n, int m)
 {
-  assert(m > 0);
-
   size = m;
 
   while(m--)
@@ -16,6 +21,18 @@ flowshop::flowshop(int n, int m)
   idle = true;
   time = 0;
 }
+
+flowshop(const flowshop &f)
+{
+  if(this != f) {
+    time = f.time;
+    idle = f.idle;
+    size = f.size;
+    machs = vector<machine>(f.machs);
+  }
+}
+
+
 
 void flowshop::update()
 {
@@ -80,16 +97,19 @@ void flowshop::clear_flow()
 
 // simulation start
 void flowshop::run(std::queue<int> &q)
-{
-  ////// add assertions  
-
-  f.clear_flow();
+{  
+  clear_flow();
+   
+  if(q.empty())
+    return;  
   
-  while( !q.empty() && !f.is_done() ) {
-    if( !q.empty() && f.is_ready() ) {
-      f.add_job(q.pop());
+  add_job(q.pop());
+
+  while( !q.empty() && !is_done() ) {
+    if( !q.empty() && is_ready() ) {
+      add_job(q.pop());
     }
-    f.update();
+    update();
   }
 }
 

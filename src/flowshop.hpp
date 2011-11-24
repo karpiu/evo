@@ -38,7 +38,9 @@ class flowshop
     bool idle;    
     
   public:
+    flowshop();
     flowshop(int n, int m);
+    flowshop(const flowshop &f);
     ~flowshop() {}
     
     void run(std::queue<int> &q);
