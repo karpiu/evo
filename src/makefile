@@ -2,7 +2,7 @@ error_flags = -Wall -Werror
 std_flag = -std=c++0x
 compiler = g++-4.4
 
-modules = random.o permutation.o mutation.o crossover.o sga.o
+modules = random.o permutation.o mutation.o crossover.o sga.o flowshop.o
 
 out = evo.e
 
@@ -22,6 +22,9 @@ crossover.o: crossover.cpp crossover.hpp
 
 sga.o: sga.cpp sga.hpp
 	$(compiler) $(error_flags) $(std_flag) -c sga.cpp -o sga.o
+
+flowshop.o: flowshop.cpp flowshop.hpp
+	$(compiler) $(error_flags) $(std_flag) -c flowshop.cpp -o flowshop.o
 
 evo.e: main.cpp $(modules)
 	$(compiler) $(error_flags) $(std_flag) main.cpp $(modules) -o evo.e
