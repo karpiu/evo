@@ -4,6 +4,8 @@
 #include <queue>
 #include <iostream>
 #include <assert.h>
+#include <string.h>
+#include <math.h>
 
 struct machine 
 {
@@ -50,6 +52,8 @@ class flowshop
     void add_job(int job);    
     void update();
     void clear_flow();
+    
+    int cmax(const std::vector<int> &v);  
 
     bool is_done() { return idle; };
     bool is_ready() { return ! machs[0].is_working; }; 
