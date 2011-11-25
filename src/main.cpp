@@ -30,15 +30,8 @@ population initial_population()
 }
 
 float evaluation(const permutation& p)
-{
-  std::queue<int> q; //  jobs queue
-  
-  for(auto i=p.P().begin(); i!=p.P().end(); ++i)
-    q.push(*i);
-
-  f.run(q);
-  
-  return f.get_time();
+{ 
+  return f.cmax(p.P());
 }
 
 void evaluate_population(population& p)
@@ -117,7 +110,7 @@ struct eval_cmp
 {
   bool operator()(const specimen& s1, const specimen& s2) const
   {
-    return std::less<float>()(s2.adapt, s1.adapt);
+    return std::less<float>()(s1.adapt, s2.adapt);
   }
 };
 
