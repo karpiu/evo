@@ -1,4 +1,3 @@
-
 #include "flowshop.hpp"
 
 flowshop::flowshop()
@@ -135,6 +134,8 @@ int flowshop::cmax(const std::vector<int> &v)
       C[j] = std::max(C[j-1], C_prev[j]) + machs[j].time_table[v[i]];
     std::swap( C, C_prev ); // swap pointers 
   }
+  delete C;
+  delete C_prev;
   
   return C_prev[size-1];
 }
