@@ -132,7 +132,7 @@ void raport(population& p)
   {
     if(cfg.debug)
     {
-      std::cout << "Raporting best specimen\n";
+      std::cout << "Raporting best speciman\n";
       std::cout << "Evaluation = [ permutation ]\n";
     }
     std::cout << p.begin()->eval << " = " << p.begin()->perm << std::endl;
