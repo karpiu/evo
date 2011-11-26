@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <functional>
+
+#include <boost/program_options.hpp>
+namespace po = boost::program_options;
+
 #include "random.hpp"
 #include "sga.hpp"
 #include "mutation.hpp"
@@ -14,6 +18,45 @@ int N;  // number of jobs
 int M;  // number of machines
 
 flowshop f;
+
+po::variables_map read_command_line(po::options_description command_line_args_desc, int argc, char* argv[])
+{
+  po::variables_map args;
+  po::store(po::parse_command_line(argc, argv, command_line_args_desc), args);
+  po::notify(args);
+  
+  return args;
+}
+
+po::options_description command_line_args_create()
+{
+  po::options_description command_line_args("Available actions");
+
+  command_line_args.add_options()
+    ("help,h", "produce help message")
+    ("crossover,x", po::value<std::string>()->default_value("pmx"), "Crossover operators. Available: pmx, cx, ox")
+    ;
+  return command_line_args;
+}
+
+
+
+void read_cmd_params(int argc, char* argv[])
+{
+  po::options_description command_line_args_desc = command_line_args_create();
+  po::variables_map command_line_args = read_command_line(command_line_args_desc, argc, argv);
+
+  if(command_line_args.count("crossover"))
+  {
+    const std::string crossover_operator = command_line_args["crossover"].as<std::string>();
+    std::cout << "crossover operator: " << crossover_operator << std::endl;
+  }
+
+  if(command_line_args.count("help"))
+  {
+    std::cout << command_line_args_create() << "\n";
+  }
+}
 
 
 population initial_population()
@@ -30,7 +73,7 @@ population initial_population()
 }
 
 float evaluation(const permutation& p)
-{ 
+{
   return f.cmax(p.P());
 }
 
@@ -132,18 +175,19 @@ void read_input()
 {
   std::cin >> N;
   std::cin >> M;
-  
+
   f.initialize(N,M);
 
   for(int x = 0; x < M; ++x)
     for(int y = 0; y < N; ++y)
-      std::cin >> f[x][y];  
+      std::cin >> f[x][y];
 }
 
 int main(int argc, char* argv[])
 {
   init_random();
 
+  read_cmd_params(argc, argv);
   read_input();
 
   sga algorithm;
