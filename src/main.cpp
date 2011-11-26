@@ -6,6 +6,7 @@
 namespace po = boost::program_options;
 
 #include "problem.hpp"
+#include "crossover.hpp"
 
 
 po::variables_map read_command_line(po::options_description command_line_args_desc, int argc, char* argv[])
@@ -28,7 +29,22 @@ po::options_description command_line_args_create()
   return command_line_args;
 }
 
-
+config interpret_cmd_line_arguments(const po::variables_map& command_line_args)
+{
+  config c;
+  
+  assert(command_line_args.count("crossover"));
+  const std::string crossover_operator = command_line_args["crossover"].as<std::string>();
+  if(crossover_operator == "pmx")
+    c.crossover_type = crossover::type::PMX;
+  else if(crossover_operator == "ox")
+    c.crossover_type = crossover::type::OX;
+  else if(crossover_operator == "cx")
+    c.crossover_type = crossover::type::CX;
+  else
+    throw std::runtime_error("Crossover operator unspecified.");
+  return c;
+}
 
 void read_cmd_params(int argc, char* argv[])
 {
@@ -58,8 +74,7 @@ int main(int argc, char* argv[])
     if(command_line_args.count("help"))
       std::cout << command_line_args_create() << "\n";
 
-
-    solve_flowshop(command_line_args);
+    solve_flowshop(interpret_cmd_line_arguments(command_line_args));
   }
   catch(std::exception& e)
   {

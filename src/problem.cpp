@@ -132,14 +132,8 @@ void read_input()
       std::cin >> f[x][y];
 }
 
-void solve_flowshop(const po::variables_map& command_line_args)
+void solve_flowshop(const config& cfg)
 {
-  if(command_line_args.count("crossover"))
-  {
-    const std::string crossover_operator = command_line_args["crossover"].as<std::string>();
-    std::cout << "crossover operator: " << crossover_operator << std::endl;
-  }
-
   init_random();
 
   read_input();

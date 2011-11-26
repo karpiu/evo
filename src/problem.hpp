@@ -1,9 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <functional>
-
-#include <boost/program_options.hpp>
-namespace po = boost::program_options;
+#include <cassert>
 
 #include "random.hpp"
 #include "sga.hpp"
@@ -11,4 +9,9 @@ namespace po = boost::program_options;
 #include "crossover.hpp"
 #include "flowshop.hpp"
 
-void solve_flowshop(const po::variables_map& command_line_args);
+struct config
+{
+  crossover::type crossover_type;
+};
+
+void solve_flowshop(const config& cfg);
