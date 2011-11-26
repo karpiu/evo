@@ -90,7 +90,10 @@ int main(int argc, char* argv[])
     po::variables_map command_line_args = read_command_line(command_line_args_desc, argc, argv);
 
     if(command_line_args.count("help"))
+    {
       std::cout << command_line_args_create() << "\n";
+      return 0;
+    }
 
     config cfg = interpret_cmd_line_arguments(command_line_args);
     solve_flowshop(cfg);
