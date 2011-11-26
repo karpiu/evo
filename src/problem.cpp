@@ -118,8 +118,11 @@ void raport(population& p)
 {
   if(cfg.raport_population)
   {
-    std::cout << "Raporting population\n";
-    std::cout << "Evaluation = [ permutation ]\n";
+    if(cfg.debug)
+    {
+      std::cout << "Raporting population\n";
+      std::cout << "Evaluation = [ permutation ]\n";
+    }
     std::sort(p.begin(), p.end(), eval_cmp());
     for(auto i = p.begin(); i != p.end(); ++i)
       std::cout << i->eval << " = " << i->perm << std::endl;
