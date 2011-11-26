@@ -7,6 +7,9 @@ void flowshop::initialize(int n, int m)
   idle = true;
   time = 0;
 
+  C = new int[size];
+  C_prev = new int[size];
+
   for(int i = 0; i < m; ++i)
     machs.push_back(machine(n));
 }
@@ -15,8 +18,6 @@ void flowshop::initialize(int n, int m)
 int flowshop::cmax(const std::vector<int> &v)
 {
   unsigned int i,j;
-  int* C = new int[size];
-  int* C_prev = new int[size];
 
   memset( C_prev, 0, size*sizeof(int) ); // init with zeros
 
@@ -27,10 +28,14 @@ int flowshop::cmax(const std::vector<int> &v)
       C[j] = std::max(C[j-1], C_prev[j]) + machs[j].time_table[v[i]];
     std::swap( C, C_prev ); // swap pointers
   }
-  delete [] C;
-  delete [] C_prev;
 
   return C_prev[size-1];
+}
+
+flowshop::~flowshop()
+{
+  delete [] C;
+  delete [] C_prev;
 }
 
 std::ostream& operator << (std::ostream& os, const flowshop& f)
