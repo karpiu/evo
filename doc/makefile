@@ -5,20 +5,20 @@ in = ../in
 
 tests = 001.res 002.res 003.res 004.res 005.res
 
-001.res:
-	$(program) -r -i 5 < $(in)/001.in > 001.res
+001.res: $(in)/001.in
+	$(program) -r -i 5 < $< > $@
 
-002.res:
-	$(program) -r -i 5 < $(in)/002.in > 002.res
+002.res: $(in)/002.in
+	$(program) -r -i 5 < $< > $@
 
-003.res:
-	$(program) -r -i 5 < $(in)/003.in > 003.res
+003.res: $(in)/003.in
+	$(program) -r -i 5 < $< > $@
 
-004.res:
-	$(program) -e avg -i 1000 < $(in)/004.in > 004.res
+004.res: $(in)/004.in
+	$(program) -e avg -i 1000 < $< > $@
 
-005.res:
-	$(program) -e avg -i 1000 < $(in)/005.in > 005.res
+005.res: $(in)/005.in
+	$(program) -e avg -i 1000 < $< > $@
 
 tests: $(tests)
 clear_tests:
