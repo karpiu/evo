@@ -51,7 +51,7 @@ void adapt_population(population& p)
 bool termination(const population& p)
 {
   static int iter = 0;
-  return ++iter > 1000;
+  return ++iter > cfg.max_iter;
 }
 
 void mutation_function(population& p)
