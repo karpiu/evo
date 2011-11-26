@@ -47,12 +47,6 @@ class flowshop
     // access to time_table of machines through [] operator
     std::vector<int>& operator [] ( unsigned int n ) { assert(n < size); return machs[n].time_table; };
 
-    void run(std::queue<int> &q);
-
-    void add_job(int job);    
-    void update();
-    void clear_flow();
-    
     int cmax(const std::vector<int> &v);  
 
     bool is_done() { return idle; };
