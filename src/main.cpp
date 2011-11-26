@@ -20,7 +20,7 @@ po::variables_map read_command_line(po::options_description command_line_args_de
 
 po::options_description command_line_args_create()
 {
-  po::options_description command_line_args("Available actions");
+  po::options_description command_line_args("Available options");
 
   command_line_args.add_options()
     ("help,h", "Produce help message.")
