@@ -14,6 +14,7 @@ struct config
   crossover::type crossover_type;
   bool debug;
   bool raport_population;
+  bool raport_best;
 };
 
 void solve_flowshop(config& cfg);

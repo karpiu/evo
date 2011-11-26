@@ -26,6 +26,7 @@ po::options_description command_line_args_create()
     ("help,h", "Produce help message.")
     ("debug,d", "Show assignment of command line parameters.")
     ("raport-population,R", "Raports all population.")
+    ("raport-best,r", "Raports best found specimen.")
     ("crossover,x", po::value<std::string>()->default_value("pmx"), "Crossover operators. Available: pmx, cx, ox")
     ;
   return command_line_args;
@@ -55,6 +56,11 @@ config interpret_cmd_line_arguments(const po::variables_map& command_line_args)
     c.raport_population = true;
   else
     c.raport_population = false;
+  
+  if(command_line_args.count("raport-best"))
+    c.raport_best = true;
+  else
+    c.raport_best = false;
   return c;
 }
 

@@ -127,6 +127,16 @@ void raport(population& p)
     for(auto i = p.begin(); i != p.end(); ++i)
       std::cout << i->eval << " = " << i->perm << std::endl;
   }
+
+  if(cfg.raport_best)
+  {
+    if(cfg.debug)
+    {
+      std::cout << "Raporting best specimen\n";
+      std::cout << "Evaluation = [ permutation ]\n";
+    }
+    std::cout << p.begin()->eval << " = " << p.begin()->perm << std::endl;
+  }
 }
 
 void read_input()
