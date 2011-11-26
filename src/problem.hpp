@@ -13,6 +13,7 @@ struct config
 {
   crossover::type crossover_type;
   bool debug;
+  bool raport_population;
 };
 
-void solve_flowshop(const config& cfg);
+void solve_flowshop(config& cfg);

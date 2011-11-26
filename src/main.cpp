@@ -25,6 +25,7 @@ po::options_description command_line_args_create()
   command_line_args.add_options()
     ("help,h", "Produce help message.")
     ("debug,d", "Show assignment of command line parameters.")
+    ("raport-population,R", "Raports all population.")
     ("crossover,x", po::value<std::string>()->default_value("pmx"), "Crossover operators. Available: pmx, cx, ox")
     ;
   return command_line_args;
@@ -49,6 +50,11 @@ config interpret_cmd_line_arguments(const po::variables_map& command_line_args)
     c.debug = true;
   else
     c.debug = false;
+
+  if(command_line_args.count("raport-population"))
+    c.raport_population = true;
+  else
+    c.raport_population = false;
   return c;
 }
 
@@ -80,7 +86,8 @@ int main(int argc, char* argv[])
     if(command_line_args.count("help"))
       std::cout << command_line_args_create() << "\n";
 
-    solve_flowshop(interpret_cmd_line_arguments(command_line_args));
+    config cfg = interpret_cmd_line_arguments(command_line_args);
+    solve_flowshop(cfg);
   }
   catch(std::exception& e)
   {

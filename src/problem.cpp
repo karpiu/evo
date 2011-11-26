@@ -1,5 +1,7 @@
 #include "problem.hpp"
 
+config cfg;
+
 const int population_size = 100;
 const int parents = population_size / 2;
 
@@ -114,10 +116,14 @@ void replacement(population& p)
 
 void raport(population& p)
 {
-  std::cout << "Raporting population\n";
-  std::sort(p.begin(), p.end(), eval_cmp());
-  for(auto i = p.begin(); i != p.end(); ++i)
-    std::cout << i->eval << " = " << i->perm << std::endl;
+  if(cfg.raport_population)
+  {
+    std::cout << "Raporting population\n";
+    std::cout << "Evaluation = [ permutation ]\n";
+    std::sort(p.begin(), p.end(), eval_cmp());
+    for(auto i = p.begin(); i != p.end(); ++i)
+      std::cout << i->eval << " = " << i->perm << std::endl;
+  }
 }
 
 void read_input()
@@ -132,9 +138,11 @@ void read_input()
       std::cin >> f[x][y];
 }
 
-void solve_flowshop(const config& cfg)
+void solve_flowshop(config& c)
 {
   init_random();
+
+  cfg = c;
 
   if(cfg.debug)
   {
