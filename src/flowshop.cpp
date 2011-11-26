@@ -4,15 +4,11 @@
 void flowshop::initialize(int n, int m)
 {
   size = m;
-  
-  machine* mach = 0;
-  while(m--)
-  {
-    mach = new machine(n);  
-    machs.push_back(*mach);
-  }
   idle = true;
   time = 0;
+  
+  for(int i = 0; i < m; ++i)
+    machs.push_back(machine(n));
 }
 
 // dynamic algorithm computing Cmax

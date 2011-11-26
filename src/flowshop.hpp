@@ -40,7 +40,6 @@ class flowshop
     
   public:
     void initialize(int n, int m);
-    ~flowshop() {}
     
     // access to time_table of machines through [] operator
     std::vector<int>& operator [] ( unsigned int n ) { assert(n < size); return machs[n].time_table; };
