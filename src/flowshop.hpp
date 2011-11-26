@@ -46,9 +46,9 @@ class flowshop
 
     int cmax(const std::vector<int> &v);  
 
-    bool is_done() { return idle; };
-    bool is_ready() { return ! machs[0].is_working; }; 
-    unsigned long get_time() { return time; };
+    bool is_done() const { return idle; };
+    bool is_ready() const { return ! machs[0].is_working; }; 
+    unsigned long get_time() const { return time; };
     friend std::ostream& operator << (std::ostream& os, const flowshop& f);
 };
 
