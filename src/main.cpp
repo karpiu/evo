@@ -52,8 +52,14 @@ int main(int argc, char* argv[])
 {
   try
   {
-    read_cmd_params(argc, argv);
-    solve_flowshop();
+    po::options_description command_line_args_desc = command_line_args_create();
+    po::variables_map command_line_args = read_command_line(command_line_args_desc, argc, argv);
+
+    if(command_line_args.count("help"))
+      std::cout << command_line_args_create() << "\n";
+
+
+    solve_flowshop(command_line_args);
   }
   catch(std::exception& e)
   {
