@@ -29,6 +29,7 @@ public:
   void (*crossover)(population& p);
   void (*replacement)(population& p);
   void (*raport)(population& p);
+  void (*raport_end)(population& p);
 
   void run();
 };

@@ -13,6 +13,7 @@ void sga::run()
     adaptation(p);
     replacement(p);
     evaluate(p);
+    raport(p);
   }
-  raport(p);
+  raport_end(p);
 }

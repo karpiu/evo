@@ -2,6 +2,8 @@
 
 config cfg;
 
+int iter = 0;
+
 const int population_size = 100;
 const int parents = population_size / 2;
 
@@ -50,7 +52,6 @@ void adapt_population(population& p)
 
 bool termination(const population& p)
 {
-  static int iter = 0;
   return ++iter > cfg.max_iter;
 }
 
@@ -116,26 +117,37 @@ void replacement(population& p)
 
 void raport(population& p)
 {
-  if(cfg.raport_population)
+  if(cfg.raport_every)
   {
-    if(cfg.debug)
-    {
-      std::cout << "Raporting population\n";
-      std::cout << "Evaluation = [ permutation ]\n";
-    }
-    std::sort(p.begin(), p.end(), eval_cmp());
-    for(auto i = p.begin(); i != p.end(); ++i)
-      std::cout << i->eval << " = " << i->perm << std::endl;
+    std::cout << iter << ' ' << p[0].eval << '\n';
   }
+}
 
-  if(cfg.raport_best)
+void raport_end(population& p)
+{
+  if(!cfg.raport_every)
   {
-    if(cfg.debug)
+    if(cfg.raport_population)
     {
-      std::cout << "Raporting best speciman\n";
-      std::cout << "Evaluation = [ permutation ]\n";
+      if(cfg.debug)
+      {
+        std::cout << "Raporting population\n";
+        std::cout << "Evaluation = [ permutation ]\n";
+      }
+      std::sort(p.begin(), p.end(), eval_cmp());
+      for(auto i = p.begin(); i != p.end(); ++i)
+        std::cout << i->eval << " = " << i->perm << std::endl;
     }
-    std::cout << p.begin()->eval << " = " << p.begin()->perm << std::endl;
+
+    if(cfg.raport_best)
+    {
+      if(cfg.debug)
+      {
+        std::cout << "Raporting best speciman\n";
+        std::cout << "Evaluation = [ permutation ]\n";
+      }
+      std::cout << p.begin()->eval << " = " << p.begin()->perm << std::endl;
+    }
   }
 }
 
@@ -186,6 +198,6 @@ void solve_flowshop(config& c)
   algorithm.crossover = crossover_function;
   algorithm.replacement = replacement;
   algorithm.raport = raport;
+  algorithm.raport_end = raport_end;
   algorithm.run();
 }
-

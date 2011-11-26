@@ -16,6 +16,7 @@ struct config
   bool raport_population;
   bool raport_best;
   int max_iter;
+  bool raport_every;
 };
 
 void solve_flowshop(config& cfg);
