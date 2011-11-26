@@ -50,7 +50,15 @@ void read_cmd_params(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
-  read_cmd_params(argc, argv);
-  solve_flowshop();
+  try
+  {
+    read_cmd_params(argc, argv);
+    solve_flowshop();
+  }
+  catch(std::exception& e)
+  {
+    std::cerr << "Error: " << e.what() << "\n";
+    return 1;
+  }
   return 0;
 }
