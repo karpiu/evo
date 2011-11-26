@@ -39,9 +39,7 @@ class flowshop
     bool idle;    
     
   public:
-    flowshop();
-    flowshop(int n, int m);
-    flowshop(const flowshop &f);
+    void initialize(int n, int m);
     ~flowshop() {}
     
     // access to time_table of machines through [] operator

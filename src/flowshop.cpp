@@ -1,14 +1,7 @@
 #include "flowshop.hpp"
 
-flowshop::flowshop()
-{
-  size = 0;
-  idle = true;
-  time = 0;
-}
-
 // initiate flowshop-state-machine with 'm' machines that are idle.
-flowshop::flowshop(int n, int m)
+void flowshop::initialize(int n, int m)
 {
   size = m;
   
@@ -20,16 +13,6 @@ flowshop::flowshop(int n, int m)
   }
   idle = true;
   time = 0;
-}
-
-flowshop::flowshop( const flowshop &f )
-{  
-  if(this != &f) {
-    time = f.time;
-    idle = f.idle;
-    size = f.size;
-    machs = std::vector<machine>(f.machs);
-  }
 }
 
 // dynamic algorithm computing Cmax

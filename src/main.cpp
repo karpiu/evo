@@ -133,7 +133,7 @@ void read_input()
   std::cin >> N;
   std::cin >> M;
   
-  f = flowshop(N,M);
+  f.initialize(N,M);
 
   for(int x = 0; x < M; ++x)
     for(int y = 0; y < N; ++y)
