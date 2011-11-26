@@ -12,6 +12,7 @@
 struct config
 {
   crossover::type crossover_type;
+  bool debug;
 };
 
 void solve_flowshop(const config& cfg);

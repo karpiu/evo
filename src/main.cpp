@@ -23,7 +23,8 @@ po::options_description command_line_args_create()
   po::options_description command_line_args("Available actions");
 
   command_line_args.add_options()
-    ("help,h", "produce help message")
+    ("help,h", "Produce help message.")
+    ("debug,d", "Show assignment of command line parameters.")
     ("crossover,x", po::value<std::string>()->default_value("pmx"), "Crossover operators. Available: pmx, cx, ox")
     ;
   return command_line_args;
@@ -43,6 +44,11 @@ config interpret_cmd_line_arguments(const po::variables_map& command_line_args)
     c.crossover_type = crossover::type::CX;
   else
     throw std::runtime_error("Crossover operator unspecified.");
+
+  if(command_line_args.count("debug"))
+    c.debug = true;
+  else
+    c.debug = false;
   return c;
 }
 

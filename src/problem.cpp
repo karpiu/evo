@@ -136,6 +136,24 @@ void solve_flowshop(const config& cfg)
 {
   init_random();
 
+  if(cfg.debug)
+  {
+    std::cout << "Crossover operator: ";
+    switch(cfg.crossover_type)
+    {
+      case crossover::type::PMX:
+        std::cout << "PMX";
+        break;
+      case crossover::type::CX:
+        std::cout << "CX";
+        break;
+      case crossover::type::OX:
+        std::cout << "OX";
+        break;
+    }
+    std::cout << std::endl;
+  }
+
   read_input();
 
   sga algorithm;
