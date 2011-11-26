@@ -1,2 +1,12 @@
+To compile program:
+
+makefile
 g++-4.4
 libboost1.46-dev
+
+To compile presentation:
+
+makefile
+texlive (pdflatex)
+epstopdf
+gnuplot
