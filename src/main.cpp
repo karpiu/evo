@@ -5,19 +5,8 @@
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
 
-#include "random.hpp"
-#include "sga.hpp"
-#include "mutation.hpp"
-#include "crossover.hpp"
-#include "flowshop.hpp"
+#include "problem.hpp"
 
-const int population_size = 100;
-const int parents = population_size / 2;
-
-int N;  // number of jobs
-int M;  // number of machines
-
-flowshop f;
 
 po::variables_map read_command_line(po::options_description command_line_args_desc, int argc, char* argv[])
 {
@@ -59,146 +48,9 @@ void read_cmd_params(int argc, char* argv[])
 }
 
 
-population initial_population()
-{
-  population pop;
-  for(int i = 0; i < population_size; ++i)
-  {
-    specimen s;
-    s.perm = permutation(N, permutation::type::random);
-    s.eval = s.adapt = 0.0;
-    pop.push_back(s);
-  }
-  return pop;
-}
-
-float evaluation(const permutation& p)
-{
-  return f.cmax(p.P());
-}
-
-void evaluate_population(population& p)
-{
-  for(unsigned int i=0; i<p.size(); i++)
-    p[i].eval = evaluation(p[i].perm);
-}
-
-bool eval_comp(specimen a, specimen b) { return a.eval<b.eval; }
-
-void adapt_population(population& p)
-{
-  float F_min = min_element(p.begin(),p.end(),eval_comp)->eval;
-  for(unsigned int i=0; i<p.size(); i++)
-  {
-    float sum = 0.0;
-    for(unsigned int j=0; j<p.size(); j++)
-      sum += p[j].eval - F_min;
-    p[i].adapt = (p[i].eval - F_min)/sum;
-  }
-}
-
-bool termination(const population& p)
-{
-  static int iter = 0;
-  return ++iter > 1000;
-}
-
-void mutation_function(population& p)
-{
-  for(auto i = p.begin(); i != p.end(); ++i)
-  {
-    float prob = 1 - i->adapt; // probability of mutation
-    float r = uniform_random(); // random float between <0,1)
-
-    if(r < prob)
-    {
-      mutation::random_transposition(i->perm);
-      i->eval = evaluation(i->perm); // after mutation is done we have to evaluate this specimen again
-    }
-  }
-}
-
-void crossover_function(population& p)
-{
-  population new_population;
-
-  for(int i = 0; i < parents; ++i)
-  {
-    const int i = rand() % population_size;
-    const int j = rand() % population_size;
-
-    const float crossover_prob = 0.2f;
-
-    if(abs(p[i].adapt - p[j].adapt) > crossover_prob)
-      continue;
-
-    auto desc = crossover::random_crossover(crossover::PMX, p[i].perm, p[j].perm);
-
-    specimen ch1, ch2;
-    ch1.perm = desc.first;
-    ch1.eval = evaluation(ch1.perm);
-    ch1.adapt = 0.0;
-    ch2.perm = desc.second;
-    ch2.eval = evaluation(ch2.perm);
-    ch2.adapt = 0.0;
-
-    new_population.push_back(ch1);
-    new_population.push_back(ch2);
-  }
-
-  p.insert(p.end(), new_population.begin(), new_population.end());
-}
-
-struct eval_cmp
-{
-  bool operator()(const specimen& s1, const specimen& s2) const
-  {
-    return std::less<float>()(s1.adapt, s2.adapt);
-  }
-};
-
-void replacement(population& p)
-{
-  std::sort(p.begin(), p.end(), eval_cmp());
-  p.resize(population_size);
-}
-
-void raport(population& p)
-{
-  std::cout << "Raporting population\n";
-  std::sort(p.begin(), p.end(), eval_cmp());
-  for(auto i = p.begin(); i != p.end(); ++i)
-    std::cout << i->eval << " = " << i->perm << std::endl;
-}
-
-void read_input()
-{
-  std::cin >> N;
-  std::cin >> M;
-
-  f.initialize(N,M);
-
-  for(int x = 0; x < M; ++x)
-    for(int y = 0; y < N; ++y)
-      std::cin >> f[x][y];
-}
-
 int main(int argc, char* argv[])
 {
-  init_random();
-
   read_cmd_params(argc, argv);
-  read_input();
-
-  sga algorithm;
-  algorithm.initial_population = initial_population;
-  algorithm.evaluate = evaluate_population;
-  algorithm.adaptation = adapt_population;
-  algorithm.termination = termination;
-  algorithm.mutation = mutation_function;
-  algorithm.crossover = crossover_function;
-  algorithm.replacement = replacement;
-  algorithm.raport = raport;
-  algorithm.run();
+  solve_flowshop();
   return 0;
 }
