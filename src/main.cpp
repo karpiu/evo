@@ -27,7 +27,7 @@ po::options_description command_line_args_create()
     ("debug,d", "Show assignment of command line parameters.")
     ("raport-population,R", "Raports all population.")
     ("raport-best,r", "Raports best found speciman.")
-    ("raport-every-frame,e", "Raports best specimen every frame.")
+    ("raport-every-frame,e", po::value<std::string>(), "Raports every frame. Available: best, avg.")
     ("max-iter,i", po::value<int>()->default_value(1000), "Maximum number of iterations.")
     ("crossover,x", po::value<std::string>()->default_value("pmx"), "Crossover operators. Available: pmx, cx, ox")
     ;
@@ -65,9 +65,15 @@ config interpret_cmd_line_arguments(const po::variables_map& command_line_args)
     c.raport_best = false;
 
   if(command_line_args.count("raport-every-frame"))
-    c.raport_every = true;
+  {
+    const std::string to_raport = command_line_args["raport-every-frame"].as<std::string>();
+    if(to_raport == "best")
+      c.raport_every = config::raport::best;
+    else if(to_raport == "avg")
+      c.raport_every = config::raport::avg;
+  }
   else
-    c.raport_every = false;
+    c.raport_every = config::raport::none;
 
   assert(command_line_args.count("max-iter"));
   c.max_iter = command_line_args["max-iter"].as<int>();

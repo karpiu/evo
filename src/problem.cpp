@@ -117,15 +117,28 @@ void replacement(population& p)
 
 void raport(population& p)
 {
-  if(cfg.raport_every)
+  switch(cfg.raport_every)
   {
-    std::cout << iter << ' ' << p[0].eval << '\n';
+    case config::raport::none:
+      break;
+    case config::raport::avg:
+      {
+        float avg = 0.0;
+        for(auto i = p.begin(); i != p.end(); ++i)
+          avg += i->eval;
+        avg /= static_cast<float>(p.size());
+        std::cout << iter << ' ' << avg << '\n';
+      }
+      break;
+    case config::raport::best:
+      std::cout << iter << ' ' << p[0].eval << '\n';
+      break;
   }
 }
 
 void raport_end(population& p)
 {
-  if(!cfg.raport_every)
+  if(cfg.raport_every == config::raport::none)
   {
     if(cfg.raport_population)
     {

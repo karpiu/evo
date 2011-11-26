@@ -1,21 +1,24 @@
 output = presentation.pdf
 
+program = ../src/evo.e
+in = ../in
+
 tests = 001.res 002.res 003.res 004.res 005.res
 
 001.res:
-	../src/evo.e -r < ../in/001.in > 001.res
+	$(program) -r < $(in)/001.in > 001.res
 
 002.res:
-	../src/evo.e -r < ../in/002.in > 002.res
+	$(program) -r < $(in)/002.in > 002.res
 
 003.res:
-	../src/evo.e -r < ../in/003.in > 003.res
+	$(program) -r < $(in)/003.in > 003.res
 
 004.res:
-	../src/evo.e -e < ../in/004.in > 004.res
+	$(program) -e avg < $(in)/004.in > 004.res
 
 005.res:
-	../src/evo.e -e < ../in/005.in > 005.res
+	$(program) -e avg < $(in)/005.in > 005.res
 
 tests: $(tests)
 clear_tests:
