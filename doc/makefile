@@ -15,10 +15,10 @@ tests = 001.res 002.res 003.res 004.res 005.res
 	$(program) -r -i 5 < $< > $@
 
 004.res: $(in)/004.in
-	$(program) -e avg -i 1000 < $< > $@
+	$(program) -e avg -i 500 < $< > $@
 
 005.res: $(in)/005.in
-	$(program) -e avg -i 1000 < $< > $@
+	$(program) -e avg -i 500 < $< > $@
 
 tests: $(tests)
 clear_tests:
