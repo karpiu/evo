@@ -19,6 +19,7 @@ struct config
   bool debug;
   bool raport_population;
   bool raport_best;
+  bool smart_termination;
   int max_iter;
   raport raport_every;
 };
