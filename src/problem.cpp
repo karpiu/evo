@@ -3,6 +3,7 @@
 config cfg;
 
 int iter = 0;
+population prev_population;
 
 const int population_size = 100;
 const int parents = population_size / 2;
@@ -11,6 +12,17 @@ int N;  // number of jobs
 int M;  // number of machines
 
 flowshop f;
+
+void init_prev_population()
+{
+  for(int i = 0; i < population_size; ++i)
+  {
+    specimen s;
+    s.perm = permutation(N);
+    s.eval = s.adapt = 0.0;
+    prev_population.push_back(s);
+  }
+}
 
 population initial_population()
 {
@@ -53,6 +65,15 @@ void adapt_population(population& p)
 bool termination(const population& p)
 {
   return ++iter > cfg.max_iter;
+}
+
+bool smart_termination(const population& p)
+{
+  float sum = 0.0;
+  for(int i=0; i<population_size; ++i)
+    sum += abs(prev_population[i].eval - p[i].eval);
+  prev_population = p;
+  return sum < (population_size/2.0);
 }
 
 void mutation_function(population& p)
@@ -201,12 +222,14 @@ void solve_flowshop(config& c)
   }
 
   read_input();
+  
+  init_prev_population();
 
   sga algorithm;
   algorithm.initial_population = initial_population;
   algorithm.evaluate = evaluate_population;
   algorithm.adaptation = adapt_population;
-  algorithm.termination = termination;
+  algorithm.termination = cfg.smart_termination ? smart_termination : termination;
   algorithm.mutation = mutation_function;
   algorithm.crossover = crossover_function;
   algorithm.replacement = replacement;
