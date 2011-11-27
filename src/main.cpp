@@ -30,7 +30,7 @@ po::options_description command_line_args_create()
     ("raport-every-frame,e", po::value<std::string>(), "Raports every frame. Available: best, avg.")
     ("max-iter,i", po::value<int>()->default_value(1000), "Maximum number of iterations.")
     ("crossover,x", po::value<std::string>()->default_value("pmx"), "Crossover operators. Available: pmx, cx, ox")
-    ("smart-termination,t", "Use termination condition that does not depends on --max-iter. Also overrides --max-iter")
+    ("smart-termination,t", "Use termination condition that does not depend on --max-iter. Also overrides --max-iter")
     ;
   return command_line_args;
 }
