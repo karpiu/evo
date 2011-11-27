@@ -73,6 +73,8 @@ bool termination(const population& p)
 
 bool smart_termination(const population& p)
 {
+  if(p[0].eval <= cfg.optimum)
+    return true;
   float sum = 0.0;
   for(int i=0; i<population_size; ++i)
     sum += fabs(prev_population[i].eval - p[i].eval);
