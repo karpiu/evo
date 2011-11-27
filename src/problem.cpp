@@ -64,17 +64,22 @@ void adapt_population(population& p)
   }
 }
 
-bool termination(const population& p)
+bool optimum_termination(const population& p)
 {
   if(p[0].eval <= cfg.optimum)
     return true;
-  return ++iter > cfg.max_iter;
+}
+
+bool termination(const population& p)
+{
+  return optimum_termination(p) || (++iter > cfg.max_iter);
 }
 
 bool smart_termination(const population& p)
 {
-  if(p[0].eval <= cfg.optimum)
+  if(optimum_termination(p))
     return true;
+
   float sum = 0.0;
   for(int i=0; i<population_size; ++i)
     sum += fabs(prev_population[i].eval - p[i].eval);
