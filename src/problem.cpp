@@ -84,20 +84,7 @@ void crossover_function(population& p)
     if(abs(p[i].adapt - p[j].adapt) > crossover_prob)
       continue;
 
-    std::pair<permutation, permutation> desc;
-    
-    switch(cfg.crossover_type)
-    {
-      case crossover::type::PMX:
-        desc = crossover::random_crossover(crossover::PMX, p[i].perm, p[j].perm);
-        break;
-      case crossover::type::CX:
-        desc = crossover::random_crossover(crossover::CX, p[i].perm, p[j].perm);
-        break;
-      case crossover::type::OX:
-        desc = crossover::random_crossover(crossover::OX, p[i].perm, p[j].perm);
-        break;
-    }
+    auto desc = crossover::random_crossover(cfg.crossover_type, p[i].perm, p[j].perm);
     
     specimen ch1, ch2;
     ch1.perm = desc.first;
