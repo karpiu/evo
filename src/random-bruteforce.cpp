@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
     {
       permutation p(N, permutation::type::random);
       acc = f.cmax(p.P());
-      std::cout << acc << " .= " << p << "\n";
+
       if(acc < best)
       {
         best = acc;
