@@ -71,9 +71,9 @@ bool smart_termination(const population& p)
 {
   float sum = 0.0;
   for(int i=0; i<population_size; ++i)
-    sum += abs(prev_population[i].eval - p[i].eval);
+    sum += fabs(prev_population[i].eval - p[i].eval);
   prev_population = p;
-  return sum < (population_size/2.0);
+  return sum < (population_size/2.0f);
 }
 
 void mutation_function(population& p)
