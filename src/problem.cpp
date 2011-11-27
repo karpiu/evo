@@ -66,6 +66,8 @@ void adapt_population(population& p)
 
 bool termination(const population& p)
 {
+  if(p[0].eval <= cfg.optimum)
+    return true;
   return ++iter > cfg.max_iter;
 }
 
