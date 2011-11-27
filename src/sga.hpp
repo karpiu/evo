@@ -28,8 +28,8 @@ public:
   void (*mutation)(population& p);
   void (*crossover)(population& p);
   void (*replacement)(population& p);
-  void (*raport)(population& p);
-  void (*raport_end)(population& p);
+  void (*report)(population& p);
+  void (*report_end)(population& p);
 
   void run();
 };

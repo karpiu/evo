@@ -25,9 +25,9 @@ po::options_description command_line_args_create()
   command_line_args.add_options()
     ("help,h", "Produce help message.")
     ("debug,d", "Show assignment of command line parameters.")
-    ("raport-population,R", "Raports all population.")
-    ("raport-best,r", "Raports best found speciman.")
-    ("raport-every-frame,e", po::value<std::string>(), "Raports every frame. Available: best, avg.")
+    ("report-population,R", "Reports all population.")
+    ("report-best,r", "Reports best found speciman.")
+    ("report-every-frame,e", po::value<std::string>(), "Reports every frame. Available: best, avg.")
     ("max-iter,i", po::value<int>()->default_value(1000), "Maximum number of iterations.")
     ("crossover,x", po::value<std::string>()->default_value("pmx"), "Crossover operators. Available: pmx, cx, ox")
     ("smart-termination,t", "Use termination condition that does not depend on --max-iter. Also overrides --max-iter")
@@ -55,26 +55,26 @@ config interpret_cmd_line_arguments(const po::variables_map& command_line_args)
   else
     c.debug = false;
 
-  if(command_line_args.count("raport-population"))
-    c.raport_population = true;
+  if(command_line_args.count("report-population"))
+    c.report_population = true;
   else
-    c.raport_population = false;
+    c.report_population = false;
   
-  if(command_line_args.count("raport-best"))
-    c.raport_best = true;
+  if(command_line_args.count("report-best"))
+    c.report_best = true;
   else
-    c.raport_best = false;
+    c.report_best = false;
 
-  if(command_line_args.count("raport-every-frame"))
+  if(command_line_args.count("report-every-frame"))
   {
-    const std::string to_raport = command_line_args["raport-every-frame"].as<std::string>();
-    if(to_raport == "best")
-      c.raport_every = config::raport::best;
-    else if(to_raport == "avg")
-      c.raport_every = config::raport::avg;
+    const std::string to_report = command_line_args["report-every-frame"].as<std::string>();
+    if(to_report == "best")
+      c.report_every = config::report::best;
+    else if(to_report == "avg")
+      c.report_every = config::report::avg;
   }
   else
-    c.raport_every = config::raport::none;
+    c.report_every = config::report::none;
   
   if(command_line_args.count("smart-termination")) 
     c.smart_termination = true;
