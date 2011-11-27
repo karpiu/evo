@@ -136,13 +136,13 @@ void replacement(population& p)
   p.resize(population_size);
 }
 
-void raport(population& p)
+void report(population& p)
 {
-  switch(cfg.raport_every)
+  switch(cfg.report_every)
   {
-    case config::raport::none:
+    case config::report::none:
       break;
-    case config::raport::avg:
+    case config::report::avg:
       {
         float avg = 0.0;
         for(auto i = p.begin(); i != p.end(); ++i)
@@ -151,21 +151,21 @@ void raport(population& p)
         std::cout << iter << ' ' << avg << '\n';
       }
       break;
-    case config::raport::best:
+    case config::report::best:
       std::cout << iter << ' ' << p[0].eval << '\n';
       break;
   }
 }
 
-void raport_end(population& p)
+void report_end(population& p)
 {
-  if(cfg.raport_every == config::raport::none)
+  if(cfg.report_every == config::report::none)
   {
-    if(cfg.raport_population)
+    if(cfg.report_population)
     {
       if(cfg.debug)
       {
-        std::cout << "Raporting population\n";
+        std::cout << "Reporting population\n";
         std::cout << "Evaluation = [ permutation ]\n";
       }
       std::sort(p.begin(), p.end(), eval_cmp());
@@ -173,11 +173,11 @@ void raport_end(population& p)
         std::cout << i->eval << " = " << i->perm << std::endl;
     }
 
-    if(cfg.raport_best)
+    if(cfg.report_best)
     {
       if(cfg.debug)
       {
-        std::cout << "Raporting best speciman\n";
+        std::cout << "Reporting best speciman\n";
         std::cout << "Evaluation = [ permutation ]\n";
       }
       std::cout << p.begin()->eval << " = " << p.begin()->perm << std::endl;
@@ -233,7 +233,7 @@ void solve_flowshop(config& c)
   algorithm.mutation = mutation_function;
   algorithm.crossover = crossover_function;
   algorithm.replacement = replacement;
-  algorithm.raport = raport;
-  algorithm.raport_end = raport_end;
+  algorithm.report = report;
+  algorithm.report_end = report_end;
   algorithm.run();
 }

@@ -11,17 +11,17 @@
 
 struct config
 {
-  enum raport
+  enum report
     {
       none, best, avg
     };
   crossover::type crossover_type;
   bool debug;
-  bool raport_population;
-  bool raport_best;
+  bool report_population;
+  bool report_best;
   bool smart_termination;
   int max_iter;
-  raport raport_every;
+  report report_every;
 };
 
 void solve_flowshop(config& cfg);
