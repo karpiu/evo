@@ -192,6 +192,15 @@ void report_end(population& p)
       }
       std::cout << p.begin()->eval << " = " << p.begin()->perm << std::endl;
     }
+
+    if(cfg.optimum > -1)
+    {
+      if(cfg.debug)
+      {
+        std::cout << "Reporting number of iterations needed to compute best specimen with given optimum value or --max-iter if optimum is not reached\n";
+      }
+      std::cout << iter << "\n";
+    }
   }
 }
 
