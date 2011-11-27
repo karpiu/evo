@@ -1,11 +1,11 @@
 error_flags = -Wall -Werror
 std_flag = -std=c++0x
 compiler = g++-4.4
-libs = -lboost_program_options
+libs = -l boost_program_options
 
 modules = random.o permutation.o mutation.o crossover.o sga.o flowshop.o problem.o
 
-out = evo.e
+out = evo.e brute.e
 
 all: $(out)
 
@@ -32,6 +32,9 @@ problem.o: problem.cpp problem.hpp
 
 evo.e: main.cpp $(modules)
 	$(compiler) $(error_flags) $(std_flag) main.cpp $(modules) $(libs) -o evo.e
+
+brute.e: random-bruteforce.cpp flowshop.o permutation.o
+	$(compiler) $(error_flags) $(std_flag) random-bruteforce.cpp flowshop.o permutation.o $(libs) -o brute.e
 
 clear:
 	rm $(out) $(modules)
