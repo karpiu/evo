@@ -44,6 +44,7 @@ void read_input()
 
 int main(int argc, char* argv[])
 {
+  srand(time(0));
   try
   {
     po::options_description command_line_args_desc = command_line_args_create();
@@ -57,13 +58,24 @@ int main(int argc, char* argv[])
 
     read_input();
 
-    int iter = command_line_args["max-iter"].as<int>();
+    int iter = command_line_args["max-iter"].as<int>() - 1;
+
+    permutation best_p(N, permutation::type::random);
+    int best = f.cmax(best_p.P());
+    int acc;
 
     while(iter--)
     {
       permutation p(N, permutation::type::random);
-      std::cout << f.cmax(p.P()) << "\n"; // temporarily show each iteration
+      acc = f.cmax(p.P());
+      std::cout << acc << " .= " << p << "\n";
+      if(acc < best)
+      {
+        best = acc;
+        best_p = p;
+      }
     }
+    std::cout << best << " = " << best_p << "\n";
   }
   catch(std::exception& e)
   {
