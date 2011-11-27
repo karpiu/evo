@@ -66,8 +66,7 @@ void adapt_population(population& p)
 
 bool optimum_termination(const population& p)
 {
-  if(p[0].eval <= cfg.optimum)
-    return true;
+    return p[0].eval <= cfg.optimum;
 }
 
 bool termination(const population& p)
