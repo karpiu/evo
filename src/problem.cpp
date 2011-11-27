@@ -10,6 +10,7 @@ const int parents = population_size / 2;
 
 int N;  // number of jobs
 int M;  // number of machines
+int eval_count = 0;
 
 flowshop f;
 
@@ -39,6 +40,7 @@ population initial_population()
 
 float evaluation(const permutation& p)
 {
+  eval_count++;
   return f.cmax(p.P());
 }
 
