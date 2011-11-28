@@ -33,8 +33,8 @@ problem.o: problem.cpp problem.hpp
 evo.e: main.cpp $(modules)
 	$(compiler) $(error_flags) $(std_flag) main.cpp $(modules) $(libs) -o evo.e
 
-brute.e: random-bruteforce.cpp flowshop.o permutation.o
-	$(compiler) $(error_flags) $(std_flag) random-bruteforce.cpp flowshop.o permutation.o $(libs) -o brute.e
+brute.e: random-bruteforce.cpp random.o flowshop.o permutation.o
+	$(compiler) $(error_flags) $(std_flag) random-bruteforce.cpp random.o flowshop.o permutation.o $(libs) -o brute.e
 
 clear:
 	rm $(out) $(modules)

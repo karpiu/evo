@@ -125,6 +125,10 @@ void mutation_function(population& p)
   }
 }
 
+// used by random_shuffle
+ptrdiff_t randgenid (ptrdiff_t i) { return randid()%i;}
+ptrdiff_t (*p_randgenid)(ptrdiff_t) = randgenid;
+
 void crossover_function(population& p)
 {
   population new_population;
@@ -135,7 +139,7 @@ void crossover_function(population& p)
   // choose which specimen will crossover
   for(int i=0; i<population_size; i++)
   {
-    rd = (rand()*1.0f) / (RAND_MAX*1.0f*population_size);
+    rd = (randid()*1.0f) / (RAND_MAX*1.0f*population_size);
     if(rd > p[i].adapt)
       cross_set.push_back(i);
   }
@@ -145,7 +149,7 @@ void crossover_function(population& p)
     cross_set.pop_back();
 
   // more randomness
-  random_shuffle ( cross_set.begin(), cross_set.end() );
+  random_shuffle ( cross_set.begin(), cross_set.end(), p_randgenid );
 
   it = cross_set.begin();
   // crossover each pair from left to right

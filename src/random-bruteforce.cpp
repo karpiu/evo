@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "random.hpp"
 #include "flowshop.hpp"
 #include "permutation.hpp"
 

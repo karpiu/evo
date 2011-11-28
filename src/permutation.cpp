@@ -29,7 +29,7 @@ void permutation::gen_random_perm()
   for(int i = 0; i < N(); ++i)
     perm[i] = i;
   for(int i = 0; i < N(); ++i)
-    std::swap(perm[i], perm[rand() % (i + 1)]);
+    std::swap(perm[i], perm[randid() % (i + 1)]);
 }
 
 void permutation::gen_identity_perm()

@@ -15,3 +15,8 @@ float uniform_random()
   return uniform_deviate(rand());
 }
 
+int randid()
+{
+  return rand()+getpid();
+}
+
