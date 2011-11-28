@@ -3,7 +3,7 @@ output = presentation.pdf
 program = ../src/evo.e
 in = ../in
 
-tests = 001.res 002.res 003.res 004.res 005.res
+tests = 001.res 002.res 003.res 004.res 005.res 006a.res 006b.res 006.res
 
 001.res: $(in)/001.in
 	$(program) -r -i 5 < $< > $@
@@ -20,20 +20,31 @@ tests = 001.res 002.res 003.res 004.res 005.res
 005.res: $(in)/005.in
 	$(program) -e avg -i 500 < $< > $@
 
+006a.res: $(in)/006.in
+	$(program) -e avg -i 50 < $< > $@
+
+006b.res: $(in)/006.in
+	$(program) -e avg -i 50 < $< > $@
+
+006.res: 006a.res 006b.res
+	join 006a.res 006b.res > $@
+
 tests: $(tests)
 clear_tests:
 	rm -f $(tests)
 
 
-graphs = 004.pdf 005.pdf
+graphs = 004.pdf 005.pdf 006.pdf
 graphs: $(graphs)
 clear_graphs:
 	rm -f $(graphs)
 
 %.pdf: %.res graph.gnuplot
-	gnuplot graph.gnuplot < $< > tmp.eps
+	cat $< > graph.dat
+	gnuplot graph.gnuplot > tmp.eps
 	epstopdf tmp.eps --outfile=$@
 	rm tmp.eps
+	rm graph.dat
 
 all: $(output)
 
