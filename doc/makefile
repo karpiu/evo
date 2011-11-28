@@ -30,7 +30,7 @@ tests = 001.res 002.res 003.res 004.res 005.res 006a.res 006b.res 006c.res 006.r
 	$(program) -e avg -i 50 -x ox < $< > $@
 
 006.res: 006a.res 006b.res 006c.res
-	join 006a.res 006b.res | join - 006c.res > $@
+	./joinN.sh 006a.res 006b.res 006c.res > $@
 
 tests: $(tests)
 clear_tests:
