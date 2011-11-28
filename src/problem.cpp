@@ -104,18 +104,31 @@ void mutation_function(population& p)
 void crossover_function(population& p)
 {
   population new_population;
-
-  for(int i = 0; i < parents; ++i)
+  std::vector<int> cross_set;
+  std::vector<int>::iterator it;
+  float rd;
+  
+  // choose which specimen will crossover
+  for(int i=0; i<population_size; i++)
   {
-    const int i = rand() % population_size;
-    const int j = rand() % population_size;
+    rd = (rand()*1.0f) / (RAND_MAX*1.0f*population_size);
+    if(rd > p[i].adapt)
+      cross_set.push_back(i);
+  }
+  
+  // we want even number of parents
+  if(cross_set.size() & 1)
+    cross_set.pop_back();
 
-    const float crossover_prob = 0.2f;
+  // more randomness
+  random_shuffle ( cross_set.begin(), cross_set.end() );
 
-    if(abs(p[i].adapt - p[j].adapt) > crossover_prob)
-      continue;
-
-    auto desc = crossover::random_crossover(cfg.crossover_type, p[i].perm, p[j].perm);
+  it = cross_set.begin();
+  // crossover each pair from left to right
+  while( it != cross_set.end())
+  {
+    auto desc = crossover::random_crossover(cfg.crossover_type, p[*it].perm, p[*(++it)].perm);
+    it++;
     
     specimen ch1, ch2;
     ch1.perm = desc.first;
