@@ -3,7 +3,6 @@ cat $1 > tmp
 shift
 while test $# -ge 1 ;
 do
-    cat tmp
     join tmp $1 > tmp2
     cp tmp2 tmp
     rm tmp2
