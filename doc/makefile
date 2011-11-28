@@ -46,6 +46,9 @@ gnuplot = graph1.gnuplot graph2.gnuplot graph3.gnuplot
 %.pdf: %.res $(gnuplot)
 	./plot_graph.sh $< $@
 
+script_permissions:
+	chmod +x count_graphs.sh joinN.sh plot_graph.sh
+
 all: $(output)
 
 $(output): presentation.tex $(tests) $(graphs)
