@@ -42,12 +42,9 @@ graphs: $(graphs)
 clear_graphs:
 	rm -f $(graphs)
 
-%.pdf: %.res graph.gnuplot
-	cat $< > graph.dat
-	gnuplot graph.gnuplot > tmp.eps
-	epstopdf tmp.eps --outfile=$@
-	rm tmp.eps
-	rm graph.dat
+gnuplot = graph1.gnuplot graph2.gnuplot graph3.gnuplot 
+%.pdf: %.res $(gnuplot)
+	./plot_graph.sh $< $@
 
 all: $(output)
 
