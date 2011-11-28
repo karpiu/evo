@@ -35,11 +35,6 @@ std::pair<permutation, permutation> crossover::ox(permutation& p1, permutation& 
   std::vector<int>::iterator itr = result1.begin()+r;
   std::vector<int>::iterator its = result1.begin()+s+1;
 
-  for(unsigned int i=0;i<p1.P().size();i++) std::cout<< p1.P()[i] << " ";
-  std::cout << "\n";
-  for(unsigned int i=0;i<p2.P().size();i++) std::cout<< p2.P()[i] << " ";
-  std::cout << "\n";
-
   // computing first child
   int i = (s+1)%n;
   int res = (s+1)%n;
@@ -71,13 +66,6 @@ std::pair<permutation, permutation> crossover::ox(permutation& p1, permutation& 
     i++;
   }
   
-  std::cout << "    ";
-  for(unsigned int i=0;i<result1.size();i++) std::cout<< result1[i] << " ";
-  std::cout << "\n";
-  std::cout << "    ";
-  for(unsigned int i=0;i<result2.size();i++) std::cout<< result2[i] << " ";
-  std::cout << "\n";
-  std::cout << "\n";
   return std::make_pair(permutation(result1), permutation(result2));
 }
 
@@ -87,10 +75,21 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
   int n = p1.N();
   int *cycle = new int[n];
   int *rev_p1 = new int[n];
+  
+  memset(cycle,0,n*sizeof(int));
+
+  for(unsigned int i=0;i<p1.P().size();i++) std::cout<< p1.P()[i] << " ";
+  std::cout << "\n";
+  for(unsigned int i=0;i<p2.P().size();i++) std::cout<< p2.P()[i] << " ";
+  std::cout << "\n";
 
   // calculating reverse permutation of p1
   for(int i=0; i<n; i++)
     rev_p1[p1.P()[i]] = i;
+  
+  std::cout <<"r: ";
+  for(int i=0;i<n;i++) std::cout<< rev_p1[i] <<" ";
+  std::cout<<"\n";
 
   // breaking two permutations into cycles
   int perm_count = 0;
@@ -99,14 +98,15 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
     if(cycle[i] != 0)
       continue;
 
-    perm_count++;
+    
     int first = i;
     int act = first;
     int next = rev_p1[p2.P()[act]];
 
     // excluding identity cycle
-    if(next == first) perm_count--;
-
+    if(next == first){ cycle[i]=0; continue;}
+    
+    perm_count++;
     cycle[act] = perm_count;
     while( next != first )
     {
@@ -115,6 +115,10 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
       cycle[act] = perm_count;
     }
   }
+  
+  std::cout <<"c: ";
+  for(int i=0;i<n;i++) std::cout<< cycle[i] <<" ";
+  std::cout<<"\n";
 
   // producing childeren
   for(int i=0; i<n; i++)
@@ -134,6 +138,14 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
   //clean-up
   delete [] cycle;
   delete [] rev_p1;
+  
+  std::cout << "    ";
+  for(unsigned int i=0;i<result1.size();i++) std::cout<< result1[i] << " ";
+  std::cout << "\n";
+  std::cout << "    ";
+  for(unsigned int i=0;i<result2.size();i++) std::cout<< result2[i] << " ";
+  std::cout << "\n";
+  std::cout << "\n";
 
   return std::make_pair(permutation(result1), permutation(result2));
 }
