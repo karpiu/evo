@@ -21,10 +21,10 @@ tests = 001.res 002.res 003.res 004.res 005.res 006a.res 006b.res 006.res
 	$(program) -e avg -i 500 < $< > $@
 
 006a.res: $(in)/006.in
-	$(program) -e avg -i 50 < $< > $@
+	$(program) -e avg -i 50 -x pmx < $< > $@
 
 006b.res: $(in)/006.in
-	$(program) -e avg -i 50 < $< > $@
+	$(program) -e avg -i 50 -x cx < $< > $@
 
 006.res: 006a.res 006b.res
 	join 006a.res 006b.res > $@
