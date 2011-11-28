@@ -24,6 +24,8 @@ std::pair<permutation, permutation> crossover::random_crossover(crossover::type 
 
 std::pair<permutation, permutation> crossover::ox(permutation& p1, permutation& p2, int r, int s)
 {
+  if( (s-r)<=1 ) return std::pair<permutation,permutation>(permutation(p1),permutation(p2));
+    
   int n = p1.N();
   std::vector<int> result1(p1.P().begin(), p1.P().end());
   std::vector<int> tmp1(p1.P().begin(), p1.P().end()); // copy parent 1 for computing second child
@@ -32,9 +34,14 @@ std::pair<permutation, permutation> crossover::ox(permutation& p1, permutation& 
   std::vector<int>::iterator itr = result1.begin()+r;
   std::vector<int>::iterator its = result1.begin()+s+1;
 
+  for(unsigned int i=0;i<p1.P().size();i++) std::cout<< p1.P()[i] << " ";
+  std::cout << "\n";
+  for(unsigned int i=0;i<p2.P().size();i++) std::cout<< p2.P()[i] << " ";
+  std::cout << "\n";
+
   // computing first child
-  int i = s+1;
-  int res = s+1;
+  int i = (s+1)%n;
+  int res = (s+1)%n;
   while((i != s) || (res != r)){
     i %= n;
     if( its == find( itr, its, result2[i] ))
@@ -50,8 +57,8 @@ std::pair<permutation, permutation> crossover::ox(permutation& p1, permutation& 
   itr = result2.begin()+r;
   its = result2.begin()+s+1;
 
-  i = s+1;
-  res = s+1;
+  i = (s+1)%n;
+  res = (s+1)%n;
   while((i != s) || (res != r)){
     i %= n;
     if( its == find( itr, its, tmp1[i] ))
@@ -62,7 +69,14 @@ std::pair<permutation, permutation> crossover::ox(permutation& p1, permutation& 
     }
     i++;
   }
-
+  
+  std::cout << "    ";
+  for(unsigned int i=0;i<result1.size();i++) std::cout<< result1[i] << " ";
+  std::cout << "\n";
+  std::cout << "    ";
+  for(unsigned int i=0;i<result2.size();i++) std::cout<< result2[i] << " ";
+  std::cout << "\n";
+  std::cout << "\n";
   return std::make_pair(permutation(result1), permutation(result2));
 }
 
