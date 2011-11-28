@@ -3,7 +3,7 @@ output = presentation.pdf
 program = ../src/evo.e
 in = ../in
 
-tests = 001.res 002.res 003.res 004.res 005.res 006a.res 006b.res 006.res
+tests = 001.res 002.res 003.res 004.res 005.res 006a.res 006b.res 006c.res 006.res
 
 001.res: $(in)/001.in
 	$(program) -r -i 5 < $< > $@
@@ -26,8 +26,11 @@ tests = 001.res 002.res 003.res 004.res 005.res 006a.res 006b.res 006.res
 006b.res: $(in)/006.in
 	$(program) -e avg -i 50 -x cx < $< > $@
 
-006.res: 006a.res 006b.res
-	join 006a.res 006b.res > $@
+006c.res: $(in)/006.in
+	$(program) -e avg -i 50 -x ox < $< > $@
+
+006.res: 006a.res 006b.res 006c.res
+	join 006a.res 006b.res | join - 006c.res > $@
 
 tests: $(tests)
 clear_tests:
