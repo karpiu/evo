@@ -78,19 +78,10 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
   
   memset(cycle,0,n*sizeof(int));
 
-  for(unsigned int i=0;i<p1.P().size();i++) std::cout<< p1.P()[i] << " ";
-  std::cout << "\n";
-  for(unsigned int i=0;i<p2.P().size();i++) std::cout<< p2.P()[i] << " ";
-  std::cout << "\n";
-
   // calculating reverse permutation of p1
   for(int i=0; i<n; i++)
     rev_p1[p1.P()[i]] = i;
   
-  std::cout <<"r: ";
-  for(int i=0;i<n;i++) std::cout<< rev_p1[i] <<" ";
-  std::cout<<"\n";
-
   // breaking two permutations into cycles
   int perm_count = 0;
   for(int i=0; i<n; i++)
@@ -116,10 +107,6 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
     }
   }
   
-  std::cout <<"c: ";
-  for(int i=0;i<n;i++) std::cout<< cycle[i] <<" ";
-  std::cout<<"\n";
-
   // producing childeren
   for(int i=0; i<n; i++)
   {
@@ -138,14 +125,6 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
   //clean-up
   delete [] cycle;
   delete [] rev_p1;
-  
-  std::cout << "    ";
-  for(unsigned int i=0;i<result1.size();i++) std::cout<< result1[i] << " ";
-  std::cout << "\n";
-  std::cout << "    ";
-  for(unsigned int i=0;i<result2.size();i++) std::cout<< result2[i] << " ";
-  std::cout << "\n";
-  std::cout << "\n";
 
   return std::make_pair(permutation(result1), permutation(result2));
 }
