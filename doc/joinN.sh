@@ -10,3 +10,4 @@ do
     shift
 done
 cat tmp
+rm tmp
