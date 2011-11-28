@@ -24,7 +24,8 @@ std::pair<permutation, permutation> crossover::random_crossover(crossover::type 
 
 std::pair<permutation, permutation> crossover::ox(permutation& p1, permutation& p2, int r, int s)
 {
-  if( (s-r)<=1 ) return std::pair<permutation,permutation>(permutation(p1),permutation(p2));
+  if( (s-r)<=1 )
+    return std::make_pair(permutation(p1),permutation(p2));
     
   int n = p1.N();
   std::vector<int> result1(p1.P().begin(), p1.P().end());
