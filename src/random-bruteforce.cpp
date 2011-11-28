@@ -24,7 +24,7 @@ po::options_description command_line_args_create()
 
   command_line_args.add_options()
     ("help,h", "Produce help message.")
-    ("max-iter,i", po::value<int>()->default_value(1000), "Maximum number of iterations.")
+    ("max-eval,e", po::value<int>()->default_value(1000), "Maximum number of evaluations.")
     ;
   return command_line_args;
 }
@@ -58,13 +58,13 @@ int main(int argc, char* argv[])
 
     read_input();
 
-    int iter = command_line_args["max-iter"].as<int>() - 1;
+    int evals = command_line_args["max-eval"].as<int>() - 1;
 
     permutation best_p(N, permutation::type::random);
     int best = f.cmax(best_p.P());
     int acc;
 
-    while(iter--)
+    while(evals--)
     {
       permutation p(N, permutation::type::random);
       acc = f.cmax(p.P());
