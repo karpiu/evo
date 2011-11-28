@@ -1,5 +1,3 @@
-all: presentation.pdf
-
 program = ../src/evo.e
 in = ../in
 
@@ -37,6 +35,11 @@ graphs: $(graphs)
 gnuplot = graph1.gnuplot graph2.gnuplot graph3.gnuplot 
 %.pdf: %.res $(gnuplot)
 	./plot_graph.sh $< $@
+
+# compilation of presentation
+
+presentation: presentation.pdf
+all: presentation.pdf
 presentation.pdf: presentation.tex $(graphs)
 	pdflatex presentation.tex
 
