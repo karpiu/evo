@@ -30,7 +30,10 @@ int edit_distance( const permutation& a, const permutation& b )
   for(int i=0; i<n; i++)
   {
     if(p.P()[i] != b.P()[i])
+    {
       p.transpose(i, rp[b.P()[i]]);
+      res++;
+    }
   }
 
   delete [] rp;
