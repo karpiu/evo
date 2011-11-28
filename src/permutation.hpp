@@ -5,6 +5,7 @@
 #include <cassert>
 #include <iostream>
 #include <memory>
+#include <iterator>
 
 #include "random.hpp"
 

@@ -74,14 +74,10 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
   std::vector<int> result1,result2;
   int n = p1.N();
   int *cycle = new int[n];
-  int *rev_p1 = new int[n];
+  permutation rev_p1 = p1.reversed();
   
   memset(cycle,0,n*sizeof(int));
 
-  // calculating reverse permutation of p1
-  for(int i=0; i<n; i++)
-    rev_p1[p1[i]] = i;
-  
   // breaking two permutations into cycles
   int perm_count = 0;
   for(int i=0; i<n; i++)
@@ -124,7 +120,6 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
 
   //clean-up
   delete [] cycle;
-  delete [] rev_p1;
 
   return std::make_pair(permutation(result1), permutation(result2));
 }
