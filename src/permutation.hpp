@@ -41,7 +41,14 @@ public:
   permutation& operator=(const permutation& p);
   permutation() {} // unused, just for vector::resize shrinking purposes
   int N() const { return perm.size(); }
+  
+  std::vector<int>::iterator begin() { return perm.begin(); }
+  std::vector<int>::const_iterator begin() const { return perm.begin(); }
+  std::vector<int>::iterator end() { return perm.end(); }
+  std::vector<int>::const_iterator end() const { return perm.end(); }
+
   const std::vector<int>& P() const { return perm; }
+  
   int operator[](int n) const { return perm.at(n); }
   int elem_position(const int v) const;
   void transpose(const int a, const int b);
