@@ -182,6 +182,11 @@ void report(population& p)
       std::cout << iter << ' ' << p[0].eval << '\n';
       break;
   }
+  
+  if(cfg.report_var)
+  {
+    std::cout << iter << ' ' << statistics::variance(p) << '\n';
+  }
 }
 
 void report_end(population& p)

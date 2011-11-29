@@ -3,6 +3,7 @@
 #include <functional>
 #include <cassert>
 
+#include "statistics.hpp"
 #include "random.hpp"
 #include "sga.hpp"
 #include "mutation.hpp"
