@@ -38,22 +38,18 @@ int statistics::specimen_variance( const population& p, const int i )
   return sum;
 }
 
-// returns index of the avarage specimen in population p
+// returns variance of population p
 int statistics::variance( const population& p )
 {
-  int avg = 0;
-  int v = specimen_variance(p, avg);
+  int v = specimen_variance(p, 0);
   int v2;
 
   for(unsigned int i=1; i<p.size(); i++)
   {
     v2 = specimen_variance(p, i);
     if( v2 < v )
-    {
-      avg = i;
       v = v2;
-    }
   }
-  return avg;
+  return v;
 }
 
