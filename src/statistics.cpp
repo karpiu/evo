@@ -21,7 +21,7 @@ int statistics::edit_distance( const permutation& a, const permutation& b )
   return res;
 }
 
-int statistics::var( const population& p, const int i )
+int statistics::variance( const population& p, const int i )
 {
   int n = p.size();
   int sum = 0;
