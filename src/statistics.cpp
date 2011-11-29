@@ -41,6 +41,8 @@ int statistics::specimen_variance( const population& p, const int i )
 // returns variance of population p
 int statistics::variance( const population& p )
 {
+  assert(p.size() > 0);
+
   int v = specimen_variance(p, 0);
   int v2;
   
