@@ -42,12 +42,12 @@ int statistics::variance( const population& p, const int i )
 int statistics::avg_specimen( const population& p)
 {
   int avg = 0;
-  int v = var(p, avg);
+  int v = variance(p, avg);
   int v2;
 
   for(unsigned int i=1; i<p.size(); i++)
   {
-    v2 = var(p, i);
+    v2 = variance(p, i);
     if( v2 < v )
     {
       avg = i;
