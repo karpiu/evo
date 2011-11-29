@@ -43,13 +43,15 @@ int statistics::variance( const population& p )
 {
   int v = specimen_variance(p, 0);
   int v2;
-
+  
+  // we look for variance of avarage specimen
   for(unsigned int i=1; i<p.size(); i++)
   {
     v2 = specimen_variance(p, i);
     if( v2 < v )
       v = v2;
   }
+
   return v;
 }
 
