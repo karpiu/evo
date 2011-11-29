@@ -28,9 +28,9 @@ std::pair<permutation, permutation> crossover::ox(permutation& p1, permutation& 
     return std::make_pair(permutation(p1),permutation(p2));
     
   int n = p1.N();
-  std::vector<int> result1(p1.P().begin(), p1.P().end());
-  std::vector<int> tmp1(p1.P().begin(), p1.P().end()); // copy parent 1 for computing second child
-  std::vector<int> result2(p2.P().begin(), p2.P().end());
+  std::vector<int> result1(p1.begin(), p1.end());
+  std::vector<int> tmp1(p1.begin(), p1.end()); // copy parent 1 for computing second child
+  std::vector<int> result2(p2.begin(), p2.end());
 
   std::vector<int>::iterator itr = result1.begin()+r;
   std::vector<int>::iterator its = result1.begin()+s+1;
@@ -74,14 +74,10 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
   std::vector<int> result1,result2;
   int n = p1.N();
   int *cycle = new int[n];
-  int *rev_p1 = new int[n];
+  permutation rev_p1 = p1.reversed();
   
   memset(cycle,0,n*sizeof(int));
 
-  // calculating reverse permutation of p1
-  for(int i=0; i<n; i++)
-    rev_p1[p1.P()[i]] = i;
-  
   // breaking two permutations into cycles
   int perm_count = 0;
   for(int i=0; i<n; i++)
@@ -92,7 +88,7 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
     
     int first = i;
     int act = first;
-    int next = rev_p1[p2.P()[act]];
+    int next = rev_p1[p2[act]];
 
     // excluding identity cycle
     if(next == first){ cycle[i]=0; continue;}
@@ -102,7 +98,7 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
     while( next != first )
     {
       act = next;
-      next = rev_p1[p2.P()[act]];
+      next = rev_p1[p2[act]];
       cycle[act] = perm_count;
     }
   }
@@ -112,19 +108,18 @@ std::pair<permutation, permutation> crossover::cx(permutation& p1, permutation& 
   {
     if(cycle[i] & 1) // oddity test
     {
-      result1.push_back(p1.P()[i]);
-      result2.push_back(p2.P()[i]);
+      result1.push_back(p1[i]);
+      result2.push_back(p2[i]);
     }
     else
     {
-      result1.push_back(p2.P()[i]);
-      result2.push_back(p1.P()[i]);
+      result1.push_back(p2[i]);
+      result2.push_back(p1[i]);
     }
   }
 
   //clean-up
   delete [] cycle;
-  delete [] rev_p1;
 
   return std::make_pair(permutation(result1), permutation(result2));
 }
@@ -133,8 +128,8 @@ std::pair<permutation, permutation> crossover::pmx(permutation& p1, permutation&
 {
   assert(p1.N() == p2.N());
 
-  std::vector<int> result1(p1.P().begin(), p1.P().end());
-  std::vector<int> result2(p2.P().begin(), p2.P().end());
+  std::vector<int> result1(p1.begin(), p1.end());
+  std::vector<int> result2(p2.begin(), p2.end());
 
   const int empty = -1;
   // make range <r, s> empty
@@ -144,7 +139,7 @@ std::pair<permutation, permutation> crossover::pmx(permutation& p1, permutation&
   // generating result1 from <r,s> part of p2
   for(int i = r; i < s + 1; ++i)
   {
-    int p_gene = p2.P()[i];
+    int p_gene = p2[i];
     int proposed_gene = p_gene;
     while(true)
     {
@@ -159,7 +154,7 @@ std::pair<permutation, permutation> crossover::pmx(permutation& p1, permutation&
         // proposed_gene in result already
         // we should find new value
 
-        proposed_gene = p2.P()[p1.elem_position(proposed_gene)];
+        proposed_gene = p2[p1.elem_position(proposed_gene)];
       }
     }
   }
@@ -167,7 +162,7 @@ std::pair<permutation, permutation> crossover::pmx(permutation& p1, permutation&
   // generating result2 from <r,s> part of p1
   for(int i = r; i < s + 1; ++i)
   {
-    int p_gene = p1.P()[i];
+    int p_gene = p1[i];
     int proposed_gene = p_gene;
     while(true)
     {
@@ -182,7 +177,7 @@ std::pair<permutation, permutation> crossover::pmx(permutation& p1, permutation&
         // proposed_gene in result already
         // we should find new value
 
-        proposed_gene = p1.P()[p2.elem_position(proposed_gene)];
+        proposed_gene = p1[p2.elem_position(proposed_gene)];
       }
     }
   }

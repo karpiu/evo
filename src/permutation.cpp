@@ -1,5 +1,16 @@
 #include "permutation.hpp"
 
+permutation::permutation(const permutation& p) : perm(p.perm) {}
+permutation::permutation(permutation&& p) : perm(std::move(p.perm)) {}
+permutation& permutation::operator=(const permutation& p)
+{
+  if(&p != this)
+  {
+    perm = p.perm;
+  }
+  return *this;
+}
+
 permutation::permutation(const std::vector<int>& v)
 {
   perm.reserve(v.size());
@@ -77,4 +88,13 @@ std::ostream& operator << (std::ostream& os, const permutation& p)
     os << *i << ' ';
   os << ']';
   return os;
+}
+
+permutation permutation::reversed() const
+{
+  permutation p;
+  p.perm.resize(N());
+  for(int i = 0; i < N(); i++)
+    p.perm[perm[i]] = i;
+  return p;
 }

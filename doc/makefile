@@ -1,18 +1,10 @@
-output = presentation.pdf
-
 program = ../src/evo.e
 in = ../in
 
-tests = 001.res 002.res 003.res 004.res 005.res 006a.res 006b.res 006c.res 006.res
-
-001.res: $(in)/001.in
-	$(program) -r -i 5 < $< > $@
-
-002.res: $(in)/002.in
-	$(program) -r -i 5 < $< > $@
-
-003.res: $(in)/003.in
-	$(program) -r -i 5 < $< > $@
+# here specify tests
+# note: up to 3 graphs in one image
+# more than one graph is created using ./joinN.sh script (same amount
+# of rows needed)
 
 004.res: $(in)/004.in
 	$(program) -e avg -i 500 < $< > $@
@@ -30,29 +22,48 @@ tests = 001.res 002.res 003.res 004.res 005.res 006a.res 006b.res 006c.res 006.r
 	$(program) -e avg -i 50 -x ox < $< > $@
 
 006.res: 006a.res 006b.res 006c.res
-	join 006a.res 006b.res | join - 006c.res > $@
+	./joinN.sh 006a.res 006b.res 006c.res > $@
 
-tests: $(tests)
-clear_tests:
-	rm -f $(tests)
-
+# here list tests which will be converted into graphs
 
 graphs = 004.pdf 005.pdf 006.pdf
+
+# internals of automatic graph creation
+
 graphs: $(graphs)
-clear_graphs:
-	rm -f $(graphs)
 
-%.pdf: %.res graph.gnuplot
-	cat $< > graph.dat
-	gnuplot graph.gnuplot > tmp.eps
-	epstopdf tmp.eps --outfile=$@
-	rm tmp.eps
-	rm graph.dat
+gnuplot = graph1.gnuplot graph2.gnuplot graph3.gnuplot 
+%.pdf: %.res $(gnuplot)
+	./plot_graph.sh $< $@
 
-all: $(output)
+# compilation of presentation
 
-$(output): presentation.tex $(tests) $(graphs)
+presentation: presentation.pdf
+all: presentation.pdf
+presentation.pdf: presentation.tex $(graphs)
 	pdflatex presentation.tex
 
-clear: clear_tests clear_graphs
-	rm -f $(output) presentation.aux presentation.log presentation.nav presentation.out presentation.snm presentation.toc
+# clearing part
+
+clear_presentation:
+	rm -f presentation.pdf
+	rm -f presentation.aux
+	rm -f presentation.log
+	rm -f presentation.nav
+	rm -f presentation.out
+	rm -f presentation.snm
+	rm -f presentation.toc
+
+clear_graphs:
+	rm -f $(graphs)
+clear_tests:
+	rm -f *.res
+
+clear: clear_tests clear_graphs clear_presentation
+
+# helper for setting execution permission
+
+used_scripts = count_graphs.sh joinN.sh plot_graph.sh
+script_permissions:
+	chmod +x $(used_scripts)
+

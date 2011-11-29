@@ -14,7 +14,6 @@ int eval_count = 0;
 
 flowshop f;
 
-
 void init_prev_population()
 {
   for(int i = 0; i < population_size; ++i)

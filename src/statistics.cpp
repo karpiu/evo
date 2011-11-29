@@ -4,22 +4,19 @@ int statistics::edit_distance( const permutation& a, const permutation& b )
 {
   assert(a.N() == b.N());
 
-  permutation p(a.P());
+  permutation p = a;
+  permutation rp = p.reversed(); // move used instead of copying
   int res = 0;
   int n = p.N();
-  int* rp = new int[n];  
-
-  // calculating reverse permutation of p1
-  for(int i=0; i<n; i++)
-    rp[p.P()[i]] = i;  
   
   for(int i=0; i<n; i++)
   {
-    if(p.P()[i] != b.P()[i])
-      p.transpose(i, rp[b.P()[i]]);
+    if(p[i] != b[i])
+    {
+      p.transpose(i, rp[b[i]]);
+      res++;
+    }
   }
-
-  delete [] rp;
   
   return res;
 }
