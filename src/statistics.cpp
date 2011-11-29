@@ -21,7 +21,7 @@ int statistics::edit_distance( const permutation& a, const permutation& b )
   return res;
 }
 
-int statistics::variance( const population& p, const int i )
+int statistics::specimen_variance( const population& p, const int i )
 {
   int n = p.size();
   int sum = 0;
@@ -39,15 +39,15 @@ int statistics::variance( const population& p, const int i )
 }
 
 // returns index of the avarage specimen in population p
-int statistics::avg_specimen( const population& p)
+int statistics::variance( const population& p )
 {
   int avg = 0;
-  int v = variance(p, avg);
+  int v = specimen_variance(p, avg);
   int v2;
 
   for(unsigned int i=1; i<p.size(); i++)
   {
-    v2 = variance(p, i);
+    v2 = specimen_variance(p, i);
     if( v2 < v )
     {
       avg = i;
