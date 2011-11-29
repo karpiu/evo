@@ -32,6 +32,7 @@ po::options_description command_line_args_create()
     ("crossover,x", po::value<std::string>()->default_value("pmx"), "Crossover operators. Available: pmx, cx, ox")
     ("smart-termination,t", "Use termination condition that does not depend on --max-iter. Also overrides --max-iter")
     ("optimum,o", po::value<int>(), "Program will not stop until it reaches given optimal value (or --max-iter). Also prints number of iterations.")
+    ("report-var,v", "Similar to --report-every-frame, but instead best/avg specimen, it prints variance of each population.")
     ;
   return command_line_args;
 }
@@ -86,6 +87,11 @@ config interpret_cmd_line_arguments(const po::variables_map& command_line_args)
     c.optimum = command_line_args["optimum"].as<int>();
   else
     c.optimum = -1;
+  
+  if(command_line_args.count("report-var"))
+    c.report_var = true;
+  else
+    c.report_var = false;
 
   assert(command_line_args.count("max-iter"));
   c.max_iter = command_line_args["max-iter"].as<int>();

@@ -22,6 +22,7 @@ struct config
   bool smart_termination;
   int max_iter;
   int optimum;
+  bool report_var;
   report report_every;
 };
 
