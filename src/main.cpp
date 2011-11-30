@@ -33,6 +33,7 @@ po::options_description command_line_args_create()
     ("smart-termination,t", "Use termination condition that does not depend on --max-iter. Also overrides --max-iter")
     ("optimum,o", po::value<int>(), "Program will not stop until it reaches given optimal value (or --max-iter). Also prints number of iterations.")
     ("report-var,v", "Similar to --report-every-frame, but instead best/avg specimen, it prints variance of each population.")
+    ("compare-operators,c", "Executes program with special mode, in which crossover operation is selected randomly with each iteration. Returns statistical 'power' of each operator.")
     ;
   return command_line_args;
 }
@@ -93,6 +94,11 @@ config interpret_cmd_line_arguments(const po::variables_map& command_line_args)
   else
     c.report_var = false;
 
+  if(command_line_args.count("compare-operators"))
+    c.compare_operators = true;
+  else
+    c.compare_operators = false;
+  
   assert(command_line_args.count("max-iter"));
   c.max_iter = command_line_args["max-iter"].as<int>();
   return c;

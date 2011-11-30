@@ -24,6 +24,7 @@ struct config
   int max_iter;
   int optimum;
   bool report_var;
+  bool compare_operators;
   report report_every;
 };
 
