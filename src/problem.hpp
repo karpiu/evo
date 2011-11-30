@@ -26,6 +26,7 @@ struct config
   bool report_var;
   bool compare_operators;
   report report_every;
+  int seed;
 };
 
 void solve_flowshop(config& cfg);
