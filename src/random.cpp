@@ -12,7 +12,7 @@ void init_random()
 
 float uniform_random()
 {
-  return uniform_deviate(rand());
+  return uniform_deviate(randid());
 }
 
 int randid()
