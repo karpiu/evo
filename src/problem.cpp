@@ -15,7 +15,7 @@ int xop_count = 3;
 int ox_count = 0;
 int cx_count = 0;
 int pmx_count = 0;
-
+long long x_count = 0;
 
 flowshop f;
 
@@ -175,6 +175,7 @@ void crossover_function(population& p)
     }
     
     it++; it++;
+    x_count++;
 
     new_population.push_back(ch1);
     new_population.push_back(ch2);
@@ -263,6 +264,7 @@ void report_end(population& p)
       std::cout << "ox = " << ox_count << "\n";
       std::cout << "cx = " << cx_count << "\n";
       std::cout << "pmx = " << pmx_count << "\n";
+      std::cout << "crossovers = " << x_count << "\n";
     }
   }
 }
