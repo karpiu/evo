@@ -11,6 +11,11 @@ const int parents = population_size / 2;
 int N;  // number of jobs
 int M;  // number of machines
 int eval_count = 0;
+int xop_count = 3;
+int ox_count = 0;
+int cx_count = 0;
+int pmx_count = 0;
+
 
 flowshop f;
 
@@ -131,9 +136,25 @@ void crossover_function(population& p)
   // crossover each pair from left to right
   while( it != cross_set.end())
   {
-    auto desc = crossover::random_crossover(cfg.crossover_type, p[*it].perm, p[*(it+1)].perm);
-    it++; it++;
-    
+    std::pair<permutation,permutation> desc;
+    crossover::type ctype;
+
+    if(cfg.compare_operators)
+    {
+      switch(randid() % xop_count)
+      {
+        case 0: ctype = crossover::type::OX; break;
+        case 1: ctype = crossover::type::CX; break;
+        case 2:
+        default: ctype = crossover::type::PMX; break;
+      }
+      desc = crossover::random_crossover(ctype, p[*it].perm, p[*(it+1)].perm);
+    }
+    else
+    {
+      desc = crossover::random_crossover(cfg.crossover_type, p[*it].perm, p[*(it+1)].perm);
+    }
+        
     specimen ch1, ch2;
     ch1.perm = desc.first;
     ch1.eval = evaluation(ch1.perm);
@@ -141,6 +162,19 @@ void crossover_function(population& p)
     ch2.perm = desc.second;
     ch2.eval = evaluation(ch2.perm);
     ch2.adapt = 0.0;
+    
+    if(cfg.compare_operators && ( ((p[*it].eval + p[*(it+1)].eval) / (ch1.eval + ch2.eval)) >= 1 ) )
+    {
+      switch(ctype)
+      {
+        case crossover::type::OX: ox_count++; break;
+        case crossover::type::CX: cx_count++; break;
+        case crossover::type::PMX:
+        default: pmx_count++; break;
+      }
+    }
+    
+    it++; it++;
 
     new_population.push_back(ch1);
     new_population.push_back(ch2);
