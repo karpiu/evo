@@ -131,8 +131,8 @@ void crossover_function(population& p)
   // crossover each pair from left to right
   while( it != cross_set.end())
   {
-    auto desc = crossover::random_crossover(cfg.crossover_type, p[*it].perm, p[*(++it)].perm);
-    it++;
+    auto desc = crossover::random_crossover(cfg.crossover_type, p[*it].perm, p[*(it+1)].perm);
+    it++; it++;
     
     specimen ch1, ch2;
     ch1.perm = desc.first;
