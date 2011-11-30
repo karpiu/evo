@@ -257,6 +257,13 @@ void report_end(population& p)
       }
       std::cout << iter << "\n";
     }
+
+    if(cfg.compare_operators)
+    {
+      std::cout << "ox = " << ox_count << "\n";
+      std::cout << "cx = " << cx_count << "\n";
+      std::cout << "pmx = " << pmx_count << "\n";
+    }
   }
 }
 
