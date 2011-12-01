@@ -283,9 +283,12 @@ void read_input()
 
 void solve_flowshop(config& c)
 {
-  init_random();
-
   cfg = c;
+
+  if(cfg.seed == 0)
+    init_random_based_on_time();
+  else
+    init_random(cfg.seed);
 
   if(cfg.debug)
   {

@@ -10,7 +10,8 @@
 #include <cstdlib>
 #include <ctime>
 
-void init_random();
+void init_random_based_on_time();
+void init_random(int seed);
 float uniform_random();
 int randid();
 
