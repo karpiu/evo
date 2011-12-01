@@ -18,9 +18,9 @@ float uniform_random()
 int randid()
 {
   #ifdef WIN32
-    return rand()+_getpid();
+    return abs(rand()+_getpid());
   #else
-    return rand()+getpid();
+    return abs(rand()+getpid());
   #endif
 }
 
