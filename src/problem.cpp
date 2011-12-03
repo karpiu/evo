@@ -18,6 +18,7 @@ int pmx_count = 0;
 long long x_count = 0;
 
 specimen best_specimen;
+int deviate_count = 0;
 
 flowshop f;
 
@@ -204,7 +205,14 @@ void replacement(population& p)
   p.resize(population_size);
   
   if( p[0].eval < best_specimen.eval )
+  {
     best_specimen = p[0];
+    deviate_count = 0;
+  }
+  else
+  {
+    deviate_count++;
+  }
 }
 
 void report(population& p)
