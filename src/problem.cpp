@@ -256,7 +256,7 @@ void report_end(population& p)
         std::cout << "Reporting best speciman\n";
         std::cout << "Evaluation = [ permutation ]\n";
       }
-      std::cout << p.begin()->eval << " = " << p.begin()->perm << std::endl;
+      std::cout << best_specimen.eval << " = " << best_specimen.perm << std::endl;
     }
 
     if(cfg.optimum > -1)
