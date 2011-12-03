@@ -88,14 +88,7 @@ bool termination(const population& p)
 
 bool smart_termination(const population& p)
 {
-  if(optimum_termination(p))
-    return true;
-
-  float sum = 0.0;
-  for(int i=0; i<population_size; ++i)
-    sum += abs(prev_population[i].eval - p[i].eval);
-  prev_population = p;
-  return sum < population_size;
+  return optimum_termination(p) || (deviate_count > population_size);
 }
 
 void mutation_function(population& p)
