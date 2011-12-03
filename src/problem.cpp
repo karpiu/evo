@@ -17,6 +17,8 @@ int cx_count = 0;
 int pmx_count = 0;
 long long x_count = 0;
 
+specimen best_specimen;
+
 flowshop f;
 
 void init_prev_population()
@@ -30,19 +32,6 @@ void init_prev_population()
   }
 }
 
-population initial_population()
-{
-  population pop;
-  for(int i = 0; i < population_size; ++i)
-  {
-    specimen s;
-    s.perm = permutation(N, permutation::type::random);
-    s.eval = s.adapt = 0.0;
-    pop.push_back(s);
-  }
-  return pop;
-}
-
 float evaluation(const permutation& p)
 {
   eval_count++;
@@ -53,6 +42,23 @@ void evaluate_population(population& p)
 {
   for(unsigned int i=0; i<p.size(); i++)
     p[i].eval = evaluation(p[i].perm);
+}
+
+population initial_population()
+{
+  population pop;
+  for(int i = 0; i < population_size; ++i)
+  {
+    specimen s;
+    s.perm = permutation(N, permutation::type::random);
+    s.eval = s.adapt = 0.0;
+    pop.push_back(s);
+  }
+
+  best_specimen = pop[0];
+  best_specimen.eval = evaluation(pop[0].perm);
+  
+  return pop;
 }
 
 bool eval_comp(specimen a, specimen b) { return a.eval<b.eval; }
@@ -88,7 +94,7 @@ bool smart_termination(const population& p)
   for(int i=0; i<population_size; ++i)
     sum += abs(prev_population[i].eval - p[i].eval);
   prev_population = p;
-  return sum < (population_size/2.0f);
+  return sum < population_size;
 }
 
 void mutation_function(population& p)
@@ -196,6 +202,9 @@ void replacement(population& p)
 {
   std::sort(p.begin(), p.end(), eval_cmp());
   p.resize(population_size);
+  
+  if( p[0].eval < best_specimen.eval )
+    best_specimen = p[0];
 }
 
 void report(population& p)
