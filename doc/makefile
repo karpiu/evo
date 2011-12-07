@@ -24,9 +24,12 @@ in = ../in
 006.res: 006a.res 006b.res 006c.res
 	./joinN.sh 006a.res 006b.res 006c.res > $@
 
+007.res: $(in)/006.in
+	$(program) -v -i 500 -x ox < $< > $@
+
 # here list tests which will be converted into graphs
 
-graphs = 004.pdf 005.pdf 006.pdf
+graphs = 004.pdf 005.pdf 006.pdf 007.pdf
 
 # internals of automatic graph creation
 
