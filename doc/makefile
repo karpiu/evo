@@ -10,7 +10,7 @@ in = ../in
 	$(program) -e avg -i 500 < $< > $@
 
 005.res: $(in)/005.in
-	$(program) -e avg -i 500 < $< > $@
+	$(program) -e best -i 500 < $< > $@
 
 006a.res: $(in)/006.in
 	$(program) -e avg -i 50 -x pmx < $< > $@
