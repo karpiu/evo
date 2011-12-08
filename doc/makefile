@@ -13,13 +13,13 @@ in = ../in
 	$(program) -e best -i 500 < $< > $@
 
 006a.res: $(in)/006.in
-	$(program) -e avg -i 50 -x pmx < $< > $@
+	$(program) -e avg -i 1000 -x pmx < $< > $@
 
 006b.res: $(in)/006.in
-	$(program) -e avg -i 50 -x cx < $< > $@
+	$(program) -e avg -i 1000 -x ox < $< > $@
 
 006c.res: $(in)/006.in
-	$(program) -e avg -i 50 -x ox < $< > $@
+	$(program) -e avg -i 1000 -x cx < $< > $@
 
 006.res: 006a.res 006b.res 006c.res
 	./joinN.sh 006a.res 006b.res 006c.res > $@
