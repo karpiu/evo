@@ -1,22 +1,23 @@
 #!/bin/bash
 cat $1 > graph.dat
 graphs=`./count_graphs.sh $1`
-file="graph"$graphs".gnuplot"
 
-touch opt.dat
-if [ $graphs > 2 ]
+if [ $graphs -gt 2 ]
 then
+	touch graphplot.tmp
+	file="graph"$graphs".gnuplot.template"
 	s="t"$1
 	opt=$(grep ${s:0:4} ../in/optimal-cmax | cut -f2)
-	maxiter=$(wc -l $1 | cut -f1 -d ' ')
-	for i in $(eval echo {1..$maxiter})
-	do
-		echo $opt >> opt.dat
-	done 
+	echo "o="$opt >> graphplot.tmp
+	cat $file >> graphplot.tmp
+	gnuplot graphplot.tmp > tmp.eps
+	rm graphplot.tmp
+else
+	file="graph"$graphs".gnuplot"
+	gnuplot $file > tmp.eps
 fi
 
-gnuplot $file > tmp.eps
+
 epstopdf tmp.eps --outfile=$2
 rm tmp.eps
 rm graph.dat
-rm opt.dat
