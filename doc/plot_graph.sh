@@ -19,5 +19,5 @@ fi
 
 
 epstopdf tmp.eps --outfile=$2
-rm tmp.eps
-rm graph.dat
+rm -f tmp.eps
+rm -f graph.dat
