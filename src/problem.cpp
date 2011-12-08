@@ -5,7 +5,7 @@ config cfg;
 int iter = 0;
 population prev_population;
 
-const int population_size = 100;
+const int population_size = 200;
 const int parents = population_size / 2;
 
 int N;  // number of jobs
