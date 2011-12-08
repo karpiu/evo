@@ -5,10 +5,9 @@ std::pair<permutation, permutation> crossover::random_crossover(crossover::type 
   assert(p1.N() == p2.N());
 
   int n = p1.N();
-  int r = randid() % n;
-  int s = randid() % n;
-  if(r > s)
-    std::swap(r, s);
+  int l = n/3;
+  int r = randid() % (n-l);
+  int s = r+l;
 
   switch(t)
   {
