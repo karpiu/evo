@@ -9,6 +9,11 @@ std::pair<permutation, permutation> crossover::random_crossover(crossover::type 
   int r = randid() % (n-l);
   int s = r+l;
 
+  assert(r <= n);
+  assert(0 <= r);
+  assert(s <= n);
+  assert(0 <= r);
+  
   switch(t)
   {
     case OX:

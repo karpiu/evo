@@ -5,7 +5,7 @@ libs = -l boost_program_options
 
 modules = random.o permutation.o statistics.o mutation.o crossover.o sga.o flowshop.o problem.o
 
-out = evo.e brute.e
+out = evo.e brute.e eval_perm.e
 
 all: $(out)
 
@@ -41,3 +41,6 @@ brute.e: random-bruteforce.cpp random.o flowshop.o permutation.o
 
 clear:
 	rm $(out) $(modules)
+
+eval_perm.e: eval_perm.cpp random.o flowshop.o permutation.o
+	$(compiler) $(error_flags) $(std_flag) eval_perm.cpp random.o flowshop.o permutation.o $(libs) -o eval_perm.e
