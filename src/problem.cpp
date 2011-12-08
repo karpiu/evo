@@ -93,9 +93,9 @@ bool smart_termination(const population& p)
 
 void mutation_function(population& p)
 {
-  for(auto i = p.begin()+(p.size()/2); i != p.end(); ++i)
+  for(auto i = p.begin(); i != p.end(); ++i)
   {
-    float prob = i->adapt; // probability of mutation
+    float prob = 0.1f; // probability of mutation
     float r = uniform_random(); // random float between <0,1)
 
     if(r < prob)
