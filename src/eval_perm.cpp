@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 {
   if(argc != 2)
   {
-    cout << "Can I haz moar argumentz?!\n";
+    cout << "usage: ./eval_perm.e [flowshop_instance_file]\n";
     return 1;
   }
 
@@ -24,16 +24,12 @@ int main(int argc, char* argv[])
 
   for(int x = 0; x < M; ++x)
     for(int y = 0; y < N; ++y)
-    {
       costs >> f[x][y];
-    }
   
   vector<int> v;
   int perm_el;
   while(cin >> perm_el)
-  {
     v.push_back(perm_el - 1);
-  }
 
   permutation p(v); // for assert(is_permutation)
   cout << f.cmax(p.P()) << endl;
