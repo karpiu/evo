@@ -5,8 +5,10 @@ config cfg;
 int iter = 0;
 population prev_population;
 
-const int population_size = 100;
+const int population_size = 200;
 const int parents = population_size / 2;
+
+float mutation_prob = 0.30f; // probability of mutation
 
 int N;  // number of jobs
 int M;  // number of machines
@@ -95,10 +97,9 @@ void mutation_function(population& p)
 {
   for(auto i = p.begin(); i != p.end(); ++i)
   {
-    float prob = 0.33f; // probability of mutation
     float r = uniform_random(); // random float between <0,1)
 
-    if(r < prob)
+    if(r < mutation_prob)
     {
       mutation::random_transposition(i->perm);
       i->eval = evaluation(i->perm); // after mutation is done we have to evaluate this specimen again
@@ -317,6 +318,9 @@ void solve_flowshop(config& c)
     }
     std::cout << std::endl;
   }
+
+  if(cfg.crossover_type == crossover::type::OX)
+    mutation_prob = 0.15f;
 
   read_input();
   
