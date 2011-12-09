@@ -1,4 +1,5 @@
 program = ../src/evo.e
+brute_force = ../src/brute.e
 in = ../in
 
 # here specify tests
@@ -39,17 +40,35 @@ in = ../in
 100.res: 100a.res 100b.res 100c.res
 	./joinN.sh 100a.res 100b.res 100c.res > $@
 
+001ao.res: $(in)/001.in
+	$(brute_force) -e -i 10000 < $< > $@
+
+001bo.res: $(in)/001.in
+	$(program) -e avg -i 500 < $< > $@
+
+001o.res: 001ao.res 001bo.res
+	./joinN.sh 001ao.res 001bo.res > $@
+
+
 # here list tests which will be converted into graphs
 
-graphs = 004.pdf 005.pdf 006.pdf 008.pdf 100.pdf
+graphs = 004.pdf 005.pdf 006.pdf 008.pdf
+
+# same as above + optimum line
+
+graphsopt = 001o.pdf 002o.pdf
 
 # internals of automatic graph creation
 
-graphs: $(graphs)
+graphs: $(graphs) $(graphsopt)
 
-gnuplot = graph1.gnuplot graph2.gnuplot graph3.gnuplot 
+%o.pdf: %o.res
+	./plot_graph_optimum.sh $< $@
+
+gnuplot = graph1.gnuplot graph2.gnuplot graph3.gnuplot
 %.pdf: %.res $(gnuplot)
 	./plot_graph.sh $< $@
+
 
 # compilation of presentation
 
@@ -70,7 +89,7 @@ clear_presentation:
 	rm -f presentation.toc
 
 clear_graphs:
-	rm -f $(graphs)
+	rm -f $(graphs) $(graphsopt)
 clear_tests:
 	rm -f *.res
 
@@ -78,7 +97,7 @@ clear: clear_tests clear_graphs clear_presentation
 
 # helper for setting execution permission
 
-used_scripts = count_graphs.sh joinN.sh plot_graph.sh
+used_scripts = count_graphs.sh joinN.sh plot_graph.sh plot_graph_optimum.sh
 script_permissions:
 	chmod +x $(used_scripts)
 
