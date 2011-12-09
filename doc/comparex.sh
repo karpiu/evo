@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# usage : ./comparex.sh <test number> <iterations>
+
 if [ ! -f ../in/$1.in ] ; then
 	echo "Test $1 doesn't exist"
 	exit 1

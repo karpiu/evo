@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# usage: ./compareall.sh <iterations>
+
 function zeros {
 	if [ $1 -lt 10 ] ; then
 		zret="00"	
@@ -15,5 +17,5 @@ function zeros {
 for i in {1..100}; do
 	zeros $i	
 	z=$zret
-	./comparex.sh $z$i 500
+	./comparex.sh $z$i $1
 done
