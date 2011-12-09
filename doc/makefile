@@ -27,21 +27,21 @@ in = ../in
 008.res: $(in)/008.in
 	$(program) -v -i 100 -x pmx < $< > $@
 
-010a.res: $(in)/010.in
-	$(program) -e avg -i 2000 -x pmx < $< > $@
+100a.res: $(in)/100.in
+	$(program) -e avg -i 10000 -x pmx < $< > $@
 
-010b.res: $(in)/010.in
-	$(program) -e avg -i 2000 -x ox < $< > $@
+100b.res: $(in)/100.in
+	$(program) -e avg -i 10000 -x ox < $< > $@
 
-010c.res: $(in)/010.in
-	$(program) -e avg -i 2000 -x cx < $< > $@
+100c.res: $(in)/100.in
+	$(program) -e avg -i 10000 -x cx < $< > $@
 
-010.res: 010a.res 010b.res 010c.res
-	./joinN.sh 010a.res 010b.res 010c.res > $@
+100.res: 100a.res 100b.res 100c.res
+	./joinN.sh 100a.res 100b.res 100c.res > $@
 
 # here list tests which will be converted into graphs
 
-graphs = 004.pdf 005.pdf 006.pdf 008.pdf 010.pdf
+graphs = 004.pdf 005.pdf 006.pdf 008.pdf 100.pdf
 
 # internals of automatic graph creation
 
