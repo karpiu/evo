@@ -319,6 +319,9 @@ void solve_flowshop(config& c)
     std::cout << std::endl;
   }
 
+  if(cfg.crossover_type == crossover::type::OX)
+    mutation_prob = 0.15f;
+
   read_input();
   
   init_prev_population();
