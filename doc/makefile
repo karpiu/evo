@@ -28,18 +28,6 @@ in = ../in
 008.res: $(in)/008.in
 	$(program) -v -i 100 -x pmx < $< > $@
 
-100a.res: $(in)/100.in
-	$(program) -e avg -i 10000 -x pmx < $< > $@
-
-100b.res: $(in)/100.in
-	$(program) -e avg -i 10000 -x ox < $< > $@
-
-100c.res: $(in)/100.in
-	$(program) -e avg -i 10000 -x cx < $< > $@
-
-100.res: 100a.res 100b.res 100c.res
-	./joinN.sh 100a.res 100b.res 100c.res > $@
-
 001ao.res: $(in)/001.in
 	$(brute_force) -e -i 10000 < $< > $@
 
