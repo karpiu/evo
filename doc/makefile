@@ -37,6 +37,8 @@ in = ../in
 001o.res: 001ao.res 001bo.res
 	./joinN.sh 001ao.res 001bo.res > $@
 
+001h.res: $(in)/001.in
+	$(program) -c -i 500 < $< > $@
 
 # here list tests which will be converted into graphs
 
@@ -46,9 +48,14 @@ graphs = 004.pdf 005.pdf 006.pdf 008.pdf
 
 graphsopt = 001o.pdf 002o.pdf
 
+histos = 001h.pdf
+
 # internals of automatic graph creation
 
-graphs: $(graphs) $(graphsopt)
+graphs: $(graphs) $(graphsopt) $(histos)
+
+%h.pdf: %h.res
+	./plot_histogram.sh $< $@
 
 %o.pdf: %o.res
 	./plot_graph_optimum.sh $< $@
