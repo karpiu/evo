@@ -5,8 +5,8 @@ config cfg;
 int iter = 0;
 population prev_population;
 
-const int population_size = 200;
-const int parents = population_size / 2;
+int population_size;
+int parents;
 
 float mutation_prob = 0.30f; // probability of mutation
 
@@ -265,9 +265,9 @@ void report_end(population& p)
     {
       if(cfg.debug)
       {
-        std::cout << "Reporting number of iterations needed to compute best specimen with given optimum value or --max-iter if optimum is not reached\n";
+        std::cout << "Reporting number of evaluations needed to compute best specimen with given optimum value or --max-iter if optimum is not reached\n";
       }
-      std::cout << iter << "\n";
+      std::cout << population_size << ' ' << eval_count << "\n";
     }
 
     if(cfg.compare_operators)
@@ -292,6 +292,9 @@ void read_input()
 void solve_flowshop(config& c)
 {
   cfg = c;
+  
+  population_size = cfg.population_size;
+  parents = population_size / 2;
 
   if(cfg.seed == 0)
     init_random_based_on_time();

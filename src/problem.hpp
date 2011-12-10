@@ -27,6 +27,7 @@ struct config
   bool compare_operators;
   report report_every;
   int seed;
+  int population_size;
 };
 
 void solve_flowshop(config& cfg);
