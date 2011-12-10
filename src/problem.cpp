@@ -272,10 +272,7 @@ void report_end(population& p)
 
     if(cfg.compare_operators)
     {
-      std::cout << "ox = " << ox_count << "\n";
-      std::cout << "cx = " << cx_count << "\n";
-      std::cout << "pmx = " << pmx_count << "\n";
-      std::cout << "crossovers = " << x_count << "\n";
+      std::cout << x_count << ' ' << ox_count << ' ' << cx_count << ' ' << pmx_count << "\n";
     }
   }
 }
