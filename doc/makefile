@@ -92,7 +92,7 @@ clear: clear_tests clear_graphs clear_presentation
 
 # helper for setting execution permission
 
-used_scripts = count_graphs.sh joinN.sh plot_graph.sh plot_graph_optimum.sh
+used_scripts = *.sh
 script_permissions:
 	chmod +x $(used_scripts)
 

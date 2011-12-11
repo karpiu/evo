@@ -12,7 +12,7 @@ num=$1
 iter=$2
 
 echo "${num}ao.res: ../in/${num}.in" >> makefile.tmp
-echo "	../src/brute.e -e -i ${iter} < $< > \$@" >> makefile.tmp
+echo "	../src/brute.e -e 100 -i ${iter}00 < $< > \$@" >> makefile.tmp
 echo "${num}bo.res: ../in/${num}.in" >> makefile.tmp
 echo "	../src/evo.e -e avg -i ${iter} -x pmx < $< > \$@" >> makefile.tmp
 echo "${num}o.res: ${num}ao.res ${num}bo.res" >> makefile.tmp
