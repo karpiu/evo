@@ -96,3 +96,6 @@ used_scripts = *.sh
 script_permissions:
 	chmod +x $(used_scripts)
 
+report: report.pdf
+report.pdf: report.tex
+	pdflatex report.tex
