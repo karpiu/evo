@@ -82,8 +82,26 @@ Warto zauważyć, że do obliczenia $C_{max}$ można zastosować algorytm dynami
 
 \section{Przeprowadzone testy}
 \subsection{Wariancja}
-O ``odległości edycyjnej''.
+
+Zastosowaną metryką w przestrzeni permutacji jest minimalna liczba
+transpozycji potrzebnych do przekształcenia jednej permutacji w drugą.
+
+Przedstawiono wykresy wariancji populacji w tej metryce. Testy
+pokazują zbieżność populacji.
+
 \subsection{Test szybkości zbieżności do optimum}
-W porównaniu do losowego przeszukiwania przestrzeni
-\subsection{Które operatory krzyżowania psują}
+
+Przeprowadzono testy porównujące algorytm genetyczny z losowym
+przeszukiwaniem przestrzeni permutacji. Algorytm przeszukujący losowo
+przestrzeń wykonywał taką samą liczbę ewaluacji jak algorytm
+genetyczny. Otrzymano znacząco lepsze wyniki na korzyść algorytmu genetycznego.
+
+\subsection{Jakość algorytmów krzyżowania}
+
+Przeprowadzono testy sprawdzające, jak często wykorzystane algorytmy
+krzyżowania jako wynik otrzymują osobniki lepsze od rodziców. Zostały
+zaobserwowane różnice w działaniu operatorów zależnych od wyboru
+wymienianego łańcucha (PMX, CX) w stosunku do operatora niezależnego
+od tego wyboru (OX). Różnica zależy od wyboru długości wymienianego łańcucha.
+
 \end{document}
