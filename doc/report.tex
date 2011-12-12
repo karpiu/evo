@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+\usepackage{listings}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
@@ -18,7 +19,7 @@ Dla naszego problemu przyjmujemy nastepujące założenia:
 
 \begin{itemize}
   \item Każde zadanie musi być wykonane co najwyżej raz na maszynach $1, 2 ... m$ (w tej kolejności)
-  \item Każda maszyna w danym momencie pracuje tylko nad jendym zadaniem
+  \item Każda maszyna w danym momencie pracuje tylko nad jednym zadaniem
   \item Każde zadanie w danym momencie jest wykonywane na co najwyżej jednej maszynie
   \item Wykonaywanie zadania nigdy nie jest zakłócone (przerwane)
   \item Czas pomiędzy przekazaniem zadania z jednej maszyny na drugą jest zerowy
@@ -28,8 +29,30 @@ Tak zdefiniowany problem jest NP-trundy. W niniejszej pracy prezentujemy algoryt
 
 \section{Schemat algorytmu ewolucyjnego}
 
-SGA. Funkcja przystosowania. Wybór osobników do następnej populacji.
-Warunki zakończenia. Prawdopodobieństwo mutacji. Wielkość populacji.
+Do rozwiązania problemu {\em Flow Shop} zastosowaliśmy algorytm
+genetyczny SGA o następującym schemacie:
+
+\begin{verbatim}
+Losuj populację początkową
+while(NOT Warunek Zakończenia)
+{
+  Krzyżowanie w obrębie populacji
+  Mutacja osobników w populacji
+  Zastąpienie populacji nową
+}
+\end{verbatim}
+
+Rodzice dla opratorów krzyżowania są wybierani z prawdopodobieństwem
+proporcjonalnym do wartości funkcji przystosowania kandydata.
+
+Długość wymienianego łańcucha jest stałą i wynosi $\frac{1}{3}$ długości
+permutacji. Losowane jest miejsce rozpoczęcia wymienianego łańcucha.
+
+Mutacja jest przeprowadzana z prawdopodobieństwem 0.3.
+
+\section{Operatory ewolucyjne}
+PMX, CX, OX. Wspomnienie o stałej długości s,r.
+Także operator mutacji - losowa transpozycja.
 
 \section{Funkcja celu}
 
@@ -56,10 +79,6 @@ Wartość funkcji $C_{max}$ wyraża się wzorem rekurencyjnym:
 
 Warto zauważyć, że do obliczenia $C_{max}$ można zastosować algorytm dynamiczny. 
 
-\section{Operatory krzyżowania}
-PMX, CX, OX. Wspomnienie o stałej długości s,r.
-\section{Operator mutacji}
-Cały wielki rodział o jednej transpozycji!
 \section{Przeprowadzone testy}
 \subsection{Wariancja}
 O ``odległości edycyjnej''.
