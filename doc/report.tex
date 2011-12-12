@@ -81,6 +81,15 @@ Wartość funkcji $C_{max}$ wyraża się wzorem rekurencyjnym:
 Warto zauważyć, że do obliczenia $C_{max}$ można zastosować algorytm dynamiczny. 
 
 \section{Przeprowadzone testy}
+\subsection{Poszukiwanie optimum}
+
+Korzystając z zestawu testów Erica Tailarda
+(\url{http://mistic.heig-vd.ch/taillard/problemes.dir/ordonnancement.dir/ordonnancement.html})
+wraz z rozwiązaniami optymalnymi przeprowadzono testy jakości
+rozwiązań znalezionych przez algorytm ewolucyjny. Przeprowadzono testy
+na różnych wielkościach populacji i dla różnych warunków stopu
+(procentowa odległość od optimum).
+
 \subsection{Wariancja}
 
 Zastosowaną metryką w przestrzeni permutacji jest minimalna liczba
@@ -89,7 +98,7 @@ transpozycji potrzebnych do przekształcenia jednej permutacji w drugą.
 Przedstawiono wykresy wariancji populacji w tej metryce. Testy
 pokazują zbieżność populacji.
 
-\subsection{Test szybkości zbieżności do optimum}
+\subsection{Porównanie z losowym przeszukiwaniem przestrzeni}
 
 Przeprowadzono testy porównujące algorytm genetyczny z losowym
 przeszukiwaniem przestrzeni permutacji. Algorytm przeszukujący losowo
