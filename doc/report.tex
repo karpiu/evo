@@ -13,7 +13,7 @@
 Problem szeregowania zadań ma kilka różnych wariantów. W niniejszej pracy zajmujemy się problemem typu {\em Flow Shop}.
 Problem ten jest problemem planowania produkcji, w którym $n$ zadań musi zostać wykonanych na $m$ maszynach (jeden po drugim).
 Danymi wejściowymi są $n$, $m$ oraz macierz $T$, gdzie $T[i][j]$ jest czasem wykonania zadania $i$ na maszynie $j$ $(i = 1..n, j = 1..m )$.
-Czasy są nieujemne, stałe i nie zmianiają się podczas pracy maszyn. Problem jest zminimalizowanie czasu 
+Czasy są nieujemne, stałe i nie zmianiają się podczas pracy maszyn. Problemem jest zminimalizowanie czasu 
 pomiędzy rozpoczęciem wykonywania pierwszego zadania na pierwszej maszynie a zakończeniem wykonywania ostatniego zadania na ostatniej maszynie.
 Dla naszego problemu przyjmujemy nastepujące założenia:
 
@@ -21,16 +21,16 @@ Dla naszego problemu przyjmujemy nastepujące założenia:
   \item Każde zadanie musi być wykonane co najwyżej raz na maszynach $1, 2 ... m$ (w tej kolejności)
   \item Każda maszyna w danym momencie pracuje tylko nad jednym zadaniem
   \item Każde zadanie w danym momencie jest wykonywane na co najwyżej jednej maszynie
-  \item Wykonaywanie zadania nigdy nie jest zakłócone (przerwane)
+  \item Wykonywanie zadania nigdy nie jest zakłócone (przerwane)
   \item Czas pomiędzy przekazaniem zadania z jednej maszyny na drugą jest zerowy
 \end{itemize}
 
-Tak zdefiniowany problem jest NP-trundy. W niniejszej pracy prezentujemy algorytm ewolucyjny znajdujący przybliżone rozwiązanie.
+Tak zdefiniowany problem jest NP-trudny. W niniejszej pracy prezentujemy algorytm ewolucyjny poszukujący przybliżonego rozwiązania.
 
 \section{Schemat algorytmu ewolucyjnego}
 
 Do rozwiązania problemu {\em Flow Shop} zastosowaliśmy algorytm
-genetyczny SGA o następującym schemacie:
+genetyczny SGA wykonujący się wg następującego schematu:
 
 \begin{verbatim}
 Losuj populację początkową
