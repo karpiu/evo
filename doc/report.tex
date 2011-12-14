@@ -54,7 +54,17 @@ Mutacja jest przeprowadzana z prawdopodobieństwem 0.3.
 \section{Operatory ewolucyjne}
 
 Zostały wykorzystane operatory krzyżowania permutacji PMX, CX, OX.
-Operator mutacji aplikuje losową transpozycję do mutowanej permutacji.
+
+\begin{itemize}
+  \item {\em Partially-Matched Crossover (PMX)} - 
+  \item {\em Cycle Crossover (CX)} - ustalane są cykle między rodziecem pierwszym a drugim, następnie cykle są numerowane. Potomkowie są tworzeni poprzez
+        kopiowanie genów należących do cykli nieparzystych (w sensie numeracji) i zamianie genów leżących na pozycjach należących do cykli 
+        parzystych na geny drugiego rodzica (na tej samej pozycji)
+  \item {\em Order Crossover Operator (OX)} - spójny blok genów z pierwszego rodzica jest mapowany na drugiego rodzica (w tym samym miejscu). Reszta genów jest
+        przepisywana kolejno zaczynając od miejsca zakończenia mapowania, pomijając geny występujące w mapowaniu.
+\end{itemize}
+
+\noindent Operator mutacji aplikuje losową transpozycję do mutowanej permutacji.
 
 \section{Funkcja celu}
 
@@ -82,13 +92,36 @@ Wartość funkcji $C_{max}$ wyraża się wzorem rekurencyjnym:
 Warto zauważyć, że do obliczenia $C_{max}$ można zastosować algorytm dynamiczny. 
 
 \section{Przeprowadzone testy}
-\subsection{Poszukiwanie optimum}
 
-Korzystając z zestawu testów Erica Tailarda
+\subsection{Dane testowe}
+
+W celu ustalenia sprawności algorytmu SGA wykorzystane zostały zestawy testów prof. Erica Tailarda
 (\url{http://mistic.heig-vd.ch/taillard/problemes.dir/ordonnancement.dir/ordonnancement.html})
-wraz z rozwiązaniami optymalnymi przeprowadzono testy jakości
-rozwiązań znalezionych przez algorytm ewolucyjny. Przeprowadzono testy
-na różnych wielkościach populacji i dla różnych warunków stopu
+, dla których znane są optymalne rozwiązania.
+
+\begin{figure}
+  \centering
+    \begin{tabular}{ | c | c | c | }
+      \hline                       
+      Nazwa & N & M \\ \hline
+      ta001-010 & 20 & 5 \\
+      ta011-020 & 20 & 10 \\
+      ta021-030 & 20 & 20 \\
+      ta031-040 & 50 & 5 \\
+      ta041-050 & 50 & 10 \\
+      ta051-060 & 50 & 20 \\
+      ta061-070 & 100 & 5 \\
+      ta071-080 & 100 & 10 \\
+      ta081-090 & 100 & 20 \\
+      ta091-100 & 200 & 10 \\
+      \hline
+\end{tabular}
+ \caption{Zestawy testowe, rozmiar danych}
+  \label{tab:tests}
+\end{figure}
+
+W tabeli \ref{tab:tests} znajduje się uproszczony opis stu zestawów testowych użytych
+podczas wykonywania eksperymentów ($N$ - ilość zadań, $M$ - ilość maszyn ). Przeprowadzono testy na różnych wielkościach populacji i dla różnych warunków stopu
 (procentowa odległość od optimum).
 
 \subsection{Wariancja}
