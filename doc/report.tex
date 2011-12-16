@@ -129,16 +129,33 @@ podczas wykonywania eksperymentów ($N$ - ilość zadań, $M$ - ilość maszyn )
 
 \subsection{Znajdowanie optimum}
 
-W celu ustalenia, czy nasza implementacja algorytmu SGA wykazuje cechy algorytmu ewolucyjnego wykonaliśmy serię niewielkich testów (dla małej liczby iteracji).
+W celu ustalenia, czy nasza implementacja algorytmu SGA wykazuje cechy algorytmu ewolucyjnego wykonaliśmy serię niewielkich eksperymentów (dla małej liczby iteracji).
 Wykres \ref{pic:plot1} przedstawia średnią wartość funkcji celu w populacji, w zależności od liczby iteracji. Widać wyraźnie, że populacja zbiega do pewnego ekstremum.
 Liczne skoki wartości funkcji celu widoczne po osiągnięciu ekstremum, spowodowane są zastosowaniem operatora mutacji. Dzięki temu istnieje szansa na wyjście z lokalnego ekstremum.
-Dla wykresu \ref{pic:plot1} efeket ten jest widoczny przy ok. 900-nej iteracji. 
+Dla wykresu \ref{pic:plot1} efekt ten jest widoczny przy ok. 900-nej iteracji. 
 
 \begin{figure}
   \centering
   \includegraphics[scale=1.5]{plots/plot1.pdf}
-  \caption{Zbieżność populacji. Test t030}
+  \caption{Zbieżność populacji. Zestaw t030}
   \label{pic:plot1}
+\end{figure}
+
+Podobne wnioski wyciągnęliśmy dla wszystkich posiadanych zestawów testowych. Po serii małych eksperymentów wykonaliśmy testy na znacznie większej liczbie iteracji.
+Celem tych testów było sprawdzenie wydajności algorytmu SGA. Tabela \ref{tab:extreme} przedstawia wyniki przeprowadzonych eksperymentów.
+
+\begin{figure}
+  \centering
+    \begin{tabular}{l|l|l|l|l|} \cline{2-5}
+     & \multicolumn{4}{|c|}{Liczba iteracji} \\ \cline{2-5}
+     & $10^4$ & $5\cdot 10^4$ & $10^5$ & $10^6$ \\ \hline
+    \multicolumn{1}{|c|}{t001} 	& -  & -  & - & - \\ \hline
+    \multicolumn{1}{|c|}{t005} 	& -  & -  & - & - \\ \hline
+    \multicolumn{1}{|c|}{t011} 	& -  & -  & - & - \\ \hline
+    \multicolumn{1}{|c|}{t015} 	& -  & -  & - & - \\ \hline
+    \end{tabular}
+  \caption{Odchylenie od optimum}
+  \label{tab:extreme}
 \end{figure}
 
 \subsection{Wariancja}
