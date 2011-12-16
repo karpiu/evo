@@ -4,6 +4,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[polish]{babel}
 \usepackage{url}
+\usepackage{graphicx}
+
 \title{Zastosowanie algorytmów ewolucyjnych do zagadnień
   kombinatorycznych na przykładzie problemu szeregowania zadań - sprawozdanie}
 \author{Michał Karpiński, Maciej Pacut}
@@ -124,6 +126,20 @@ dla których znane są optymalne rozwiązania.
 W tabeli \ref{tab:tests} znajduje się uproszczony opis stu zestawów testowych użytych
 podczas wykonywania eksperymentów ($N$ - ilość zadań, $M$ - ilość maszyn ). Przeprowadzono testy na różnych wielkościach populacji i dla różnych warunków stopu
 (procentowa odległość od optimum).
+
+\subsection{Znajdowanie optimum}
+
+W celu ustalenia, czy nasza implementacja algorytmu SGA wykazuje cechy algorytmu ewolucyjnego wykonaliśmy serię niewielkich testów (dla małej liczby iteracji).
+Wykres \ref{pic:plot1} przedstawia średnią wartość funkcji celu w populacji, w zależności od liczby iteracji. Widać wyraźnie, że populacja zbiega do pewnego ekstremum.
+Liczne skoki wartości funkcji celu widoczne po osiągnięciu ekstremum, spowodowane są zastosowaniem operatora mutacji. Dzięki temu istnieje szansa na wyjście z lokalnego ekstremum.
+Dla wykresu \ref{pic:plot1} efeket ten jest widoczny przy ok. 900-nej iteracji. 
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=1.5]{plots/plot1.pdf}
+  \caption{Zbieżność populacji. Test t030}
+  \label{pic:plot1}
+\end{figure}
 
 \subsection{Wariancja}
 

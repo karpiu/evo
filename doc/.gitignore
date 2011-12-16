@@ -7,3 +7,7 @@
 *.aux.swp
 *.res
 *.pdf
+
+# do not ignore:
+
+!plot?.pdf
