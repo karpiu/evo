@@ -56,7 +56,8 @@ Mutacja jest przeprowadzana z prawdopodobieństwem 0.3.
 Zostały wykorzystane operatory krzyżowania permutacji PMX, CX, OX.
 
 \begin{itemize}
-  \item {\em Partially-Matched Crossover (PMX)} - 
+  \item {\em Partially-Matched Crossover (PMX)} - spójny blok genów z pierwszego rodzica jest mapowany na drugiego rodzica (w tym samym miejscu).
+        Niektóre geny mogą się powtarzać, więc wykonuje się naprawienie permutacji poprzez serię transpozycji w obrębie chromosomów rodzicielskich.
   \item {\em Cycle Crossover (CX)} - ustalane są cykle między rodziecem pierwszym a drugim, następnie cykle są numerowane. Potomkowie są tworzeni poprzez
         kopiowanie genów należących do cykli nieparzystych (w sensie numeracji) i zamianie genów leżących na pozycjach należących do cykli 
         parzystych na geny drugiego rodzica (na tej samej pozycji)
