@@ -12,6 +12,9 @@
 \date{Grudzień 2011}
 \begin{document}
   \maketitle
+
+\hyphenation{krzy-żo-wa-nia ma-szy-nie}
+
 \section{Wstęp}
 Problem szeregowania zadań ma kilka różnych wariantów. W niniejszej pracy zajmujemy się problemem typu {\em Flow Shop}.
 Problem ten jest problemem planowania produkcji, w którym $n$ zadań musi zostać wykonanych na $m$ maszynach (jeden po drugim).
@@ -146,15 +149,15 @@ Celem tych testów było sprawdzenie wydajności algorytmu SGA. Tabela \ref{tab:
 
 \begin{figure}
   \centering
-    \begin{tabular}{l|l|l|l|l|} \cline{2-5}
-     & \multicolumn{4}{|c|}{Liczba iteracji} \\ \cline{2-5}
-     & $10^4$ & $5\cdot 10^4$ & $10^5$ & $10^6$ \\ \hline
-    \multicolumn{1}{|c|}{t001} 	& -  & -  & - & - \\ \hline
-    \multicolumn{1}{|c|}{t005} 	& -  & -  & - & - \\ \hline
-    \multicolumn{1}{|c|}{t011} 	& -  & -  & - & - \\ \hline
-    \multicolumn{1}{|c|}{t015} 	& -  & -  & - & - \\ \hline
+    \begin{tabular}{l|l|l|l|l|l|} \cline{2-6}
+     & \multicolumn{5}{|c|}{Liczba iteracji} \\ \cline{2-6}
+                                & $10^4$  & $5\cdot 10^4$ & $10^5$ & $5\cdot 10^5$ & $10^6$ \\ \hline
+    \multicolumn{1}{|c|}{t001} 	& $1.48$  & $1.25$        & $1.25$ & $0.31$        & $0.00$ \\ \hline
+    \multicolumn{1}{|c|}{t005} 	& $1.21$  & $1.21$        & $1.21$ & $1.05$        & -      \\ \hline
+    \multicolumn{1}{|c|}{t011} 	& -  & -  & - & - & - \\ \hline
+    \multicolumn{1}{|c|}{t015} 	& -  & -  & - & - & - \\ \hline
     \end{tabular}
-  \caption{Odchylenie od optimum}
+  \caption{Odchylenie od optimum (w procentach)}
   \label{tab:extreme}
 \end{figure}
 
@@ -163,7 +166,23 @@ Celem tych testów było sprawdzenie wydajności algorytmu SGA. Tabela \ref{tab:
 Zastosowaną metryką w przestrzeni permutacji jest minimalna liczba
 transpozycji potrzebnych do przekształcenia jednej permutacji w drugą.
 
-Przedstawiono wykresy wariancji populacji w tej metryce. Testy
+\begin{figure}[t]
+  \centering
+  \includegraphics[scale=1.5]{plots/plot2.pdf}
+  \caption{Wariancja populacji. Zestaw t013}
+  \label{pic:plot2}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=1.5]{plots/plot3.pdf}
+  \caption{Random versus SGA. Zestaw t100}
+  \label{pic:plot3}
+\end{figure}
+
+Przedstawiono wykresy wariancji populacji w tej metryce. 
+Dla przykładu zamieszczmy wykres \ref{pic:plot2}, który 
+przedstawia wariancję populacji dla 100 iteracji. Testy
 pokazują zbieżność populacji w kolejnych iteracjach, nierzadko do
 momentu, gdy cała populacja jest kopiami tego samego osobnika.
 
@@ -172,7 +191,25 @@ momentu, gdy cała populacja jest kopiami tego samego osobnika.
 Przeprowadzono testy porównujące algorytm genetyczny z losowym
 przeszukiwaniem przestrzeni permutacji. Algorytm przeszukujący losowo
 przestrzeń wykonywał taką samą liczbę ewaluacji jak algorytm
-genetyczny. Otrzymano znacząco lepsze wyniki na korzyść algorytmu genetycznego.
+genetyczny. Wykres \ref{pic:plot3} pokazuje różnicę między losowym błądzeniem po przestrzeni
+a algorytmem SGA dla zestawu {\em t100}. Czerwona linia jest średnią wartością funkcji celu uzyskaną
+w danej iteracji przez algorytm SGA, czarna linia jest największą wartością funkcji celu uzyskaną
+poprzez wykonanie tylu ewaluacji, ile osobników liczy sobie populacja w algorytmie SGA.
+Otrzymano znacząco lepsze wyniki na korzyść algorytmu genetycznego.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[scale=1.1]{plots/plot4.pdf}
+  \caption{Porównanie operatorów krzyżowania, dążenie do optimum. Zestaw t031}
+  \label{pic:plot4}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[scale=1.1]{plots/plot5.pdf}
+  \caption{Porównanie operatorów krzyżowania, liczba udanych krzyżowań. Zestaw t097}
+  \label{pic:plot5}
+\end{figure}
 
 \subsection{Jakość algorytmów krzyżowania}
 
@@ -180,6 +217,7 @@ Przeprowadzono testy sprawdzające, jak często wykorzystane algorytmy
 krzyżowania jako wynik otrzymują osobniki lepsze od rodziców. Zostały
 zaobserwowane różnice w działaniu operatorów zależnych od wyboru
 wymienianego łańcucha (PMX, CX) w stosunku do operatora niezależnego
-od tego wyboru (OX). Różnica zależy od wyboru długości wymienianego łańcucha.
+od tego wyboru (OX) (patrz wykresy \ref{pic:plot4} i \ref{pic:plot5}).
+Różnica zależy od wyboru długości wymienianego łańcucha.
 
 \end{document}
