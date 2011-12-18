@@ -13,7 +13,7 @@
 \begin{document}
   \maketitle
 
-\hyphenation{krzy-żo-wa-nia ma-szy-nie}
+\hyphenation{krzy-żo-wa-nia ma-szy-nie zbie-ga}
 
 \section{Wstęp}
 Problem szeregowania zadań ma kilka różnych wariantów. W niniejszej pracy zajmujemy się problemem typu {\em Flow Shop}.
@@ -146,6 +146,14 @@ Dla wykresu \ref{pic:plot1} efekt ten jest widoczny przy ok. 900-nej iteracji.
 
 Podobne wnioski wyciągnęliśmy dla wszystkich posiadanych zestawów testowych. Po serii małych eksperymentów wykonaliśmy testy na znacznie większej liczbie iteracji.
 Celem tych testów było sprawdzenie wydajności algorytmu SGA. Tabela \ref{tab:extreme} przedstawia wyniki przeprowadzonych eksperymentów.
+
+Widać, że mała liczba iteracji jest niewystarczająca by potwierdzić lub zaprzeczyć skuteczność algorytmu. Obserwujemy, że przy pierwszych $10000$-ach
+iteracji najlepsze znalezione rozwiązanie oscyluje w odległości $2-3\%$ od optimum. Gdy pozostawimy uruchomiony algorytm na dłużej, to
+widzimy, że rozwiązanie jest nieustannie naprawiane, choć skoki są niewielkie i czas pomiędzy jednym a drugim skokiem jest długi. Po milionie iteracji
+najlepsze rozwiązanie znajduje się już w odległości ok. $1\%$ od optymalnego.
+
+Przy niektórych zestawach testowych optimum zostało znalezione bardzo szybko. Żeby stwierdzić, że nie było to dziełem przypadku, testy te zostały
+powtórzone kilkakrotnie - nie odnotowano zmian.
 
 \begin{figure}
   \centering
