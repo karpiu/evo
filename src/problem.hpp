@@ -28,6 +28,7 @@ struct config
   report report_every;
   int seed;
   int population_size;
+  int ping_frequency;
 };
 
 void solve_flowshop(config& cfg);

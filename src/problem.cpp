@@ -233,6 +233,14 @@ void report(population& p)
   {
     std::cout << iter << ' ' << statistics::variance(p) << '\n';
   }
+
+  if(cfg.ping_frequency > 0)
+  {
+    if(iter % cfg.ping_frequency == 0)
+    {
+      std::cout << iter << ", best: " << best_specimen.eval << '\n';
+    }
+  }
 }
 
 void report_end(population& p)
