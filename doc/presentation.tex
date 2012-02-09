@@ -16,27 +16,171 @@
 
 \maketitle
 
-\begin{frame}{Wykres średniej wartości populacji w zależności od iteracji}
-  \includegraphics{004.pdf}
+\frame{\frametitle{Problem FlowShop}
+\begin{itemize}
+  \item Wykonujemy określoną liczbę zadań na określonej liczbie maszyn
+\end{itemize} 
+}
+
+\frame{\frametitle{Dane wejściowe}
+\begin{itemize}
+  \item $n$ zadań \pause 
+  \item $m$ maszyn \pause 
+  \item macierz $T$, gdzie $T[i][j]$ jest czasem wykonania zadania $i$ na maszynie $j$ $(i = 1..n, j = 1..m )$
+\end{itemize} 
+}
+
+\frame{\frametitle{Założenia}
+\begin{itemize}
+  \item Każde zadanie musi być wykonane co najwyżej raz na maszynach $1, 2 ... m$ (w tej kolejności) \pause
+  \item Każda maszyna w danym momencie pracuje tylko nad jednym zadaniem \pause
+  \item Każde zadanie w danym momencie jest wykonywane na co najwyżej jednej maszynie \pause
+  \item Wykonywanie zadania nigdy nie jest zakłócone (przerwane) \pause
+  \item Czas pomiędzy przekazaniem zadania z jednej maszyny na drugą jest zerowy
+\end{itemize}
+}
+
+\begin{frame}{Algorytm Ewolucyjny - SGA}
+  \begin{enumerate}
+  \item Losuj populację początkową
+  \item while(NOT Warunek Zakończenia)
+  \item \{
+  \item . . Krzyżowanie w obrębie populacji
+  \item . . Mutacja osobników w populacji
+  \item . . Zastąpienie populacji nową
+  \item \}
+  \end{enumerate}
 \end{frame}
 
-\begin{frame}{Wykres wartości najlepszego osobnika w populacji w
-    zależności od iteracji}
-  \includegraphics{005.pdf}
+\begin{frame}{Operatory ewolucyjne}
+  \begin{itemize}
+    \item mutacja - losowa transpozycja z pdp $\frac{1}{3}$ \pause
+    \item krzyżowanie - operatory PMX, OX, CX z pdp proporcjonalnym do funkcji przystosowania
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Zestawy testowe}
+  \begin{tabular}{ | c | c | c | }
+      \hline                       
+      Nazwa & N & M \\ \hline
+      ta001-010 & 20 & 5 \\
+      ta011-020 & 20 & 10 \\
+      ta021-030 & 20 & 20 \\
+      ta031-040 & 50 & 5 \\
+      ta041-050 & 50 & 10 \\
+      ta051-060 & 50 & 20 \\
+      ta061-070 & 100 & 5 \\
+      ta071-080 & 100 & 10 \\
+      ta081-090 & 100 & 20 \\
+      ta091-100 & 200 & 10 \\
+      \hline
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Szukanie optimum}
+  \begin{tabular}{l|l|l|l|l|l|} \cline{2-6}
+     & \multicolumn{5}{|c|}{Liczba iteracji} \\ \cline{2-6}
+                                & $10^4$  & $5\cdot 10^4$ & $10^5$ & $5\cdot 10^5$ & $10^6$ \\ \hline
+    \multicolumn{1}{|c|}{t001} 	& $1.48$  & $1.25$        & $1.25$ & $0.31$        & $0.00$ \\ \hline
+    \multicolumn{1}{|c|}{t005} 	& $1.21$  & $1.21$        & $1.21$ & $1.05$        & $1.05$ \\ \hline
+    \multicolumn{1}{|c|}{t011} 	& $2.84$  & $0.69$        & $0.69$ & $0.69$        & $0.69$ \\ \hline
+    \multicolumn{1}{|c|}{t015} 	& $2.81$  & $2.81$        & $2.81$ & $2.39$        & $0.21$ \\ \hline
+    \multicolumn{1}{|c|}{t021} 	& $2.39$  & $1.56$        & $1.56$ & $1.56$        & $1.56$ \\ \hline
+    \multicolumn{1}{|c|}{t025} 	& $2.18$  & $2.18$        & $2.18$ & $2.18$        & $2.18$ \\ \hline
+    \multicolumn{1}{|c|}{t031} 	& $0.18$  & $0.18$        & $0.18$ & $0.18$        & $0.00$ \\ \hline
+    \multicolumn{1}{|c|}{t035} 	& $0.03$  & $0.03$        & $0.03$ & $0.03$        & $0.03$ \\ \hline
+    \multicolumn{1}{|c|}{t040} 	& $0.00$  & $-$           & $-$    & $-$           & $-$    \\ \hline
+    \multicolumn{1}{|c|}{t061} 	& $0.00$  & $-$           & $-$    & $-$           & $-$    \\ \hline
+    \multicolumn{1}{|c|}{t065} 	& $0.09$  & $0.00$        & $-$    & $-$           & $-$    \\ \hline
+    \multicolumn{1}{|c|}{t080} 	& $0.99$  & $0.99$        & $0.99$ & $0.99$        & $0.56$ \\ \hline
+    \multicolumn{1}{|c|}{t091} 	& $1.38$  & $0.81$        & $0.81$ & $0.81$        & $0.21$ \\ \hline  
+    \multicolumn{1}{|c|}{t100} 	& $1.82$  & $0.69$        & $0.48$ & $0.48$        & $0.48$ \\ \hline
+    \end{tabular}
+\end{frame}
+
+\begin{frame}{Porównanie algorytmu SGA do losowego przeszukiwania przestrzeni}
+  \includegraphics[scale=1.5]{001b.pdf}
+\end{frame}
+
+\begin{frame}{Porównanie algorytmu SGA do losowego przeszukiwania przestrzeni}
+  \includegraphics[scale=1.5]{018b.pdf}
+\end{frame}
+
+\begin{frame}{Porównanie algorytmu SGA do losowego przeszukiwania przestrzeni}
+  \includegraphics[scale=1.5]{091b.pdf}
+\end{frame}
+
+\begin{frame}{Porównanie algorytmu SGA do losowego przeszukiwania przestrzeni}
+  \includegraphics[scale=1.5]{100b.pdf}
 \end{frame}
 
 \begin{frame}{Wykresy średnich wartości populacji w zależności od
     iteracji; porównanie 3 operatorów: CX, OX, PMX}
-  \includegraphics{006.pdf}
+   \includegraphics[scale=1.5]{003c.pdf}
 \end{frame}
-
-\begin{frame}{Wykres podobieństwa populacji w zależności od iteracji}
-  \includegraphics{008.pdf}
-\end{frame}
-
 
 \begin{frame}{Wykresy średnich wartości populacji w zależności od
     iteracji; porównanie 3 operatorów: CX, OX, PMX}
-  \includegraphics{010.pdf}
+   \includegraphics[scale=1.5]{040c.pdf}
 \end{frame}
+
+\begin{frame}{Wykresy średnich wartości populacji w zależności od
+    iteracji; porównanie 3 operatorów: CX, OX, PMX}
+   \includegraphics[scale=1.5]{091c.pdf}
+\end{frame}
+
+\begin{frame}{Wykresy średnich wartości populacji w zależności od
+    iteracji; porównanie 3 operatorów: CX, OX, PMX}
+   \includegraphics[scale=1.5]{093c.pdf}
+\end{frame}
+
+\begin{frame}{Wykresy średnich wartości populacji w zależności od
+    iteracji; porównanie 3 operatorów: CX, OX, PMX}
+   \includegraphics[scale=1.5]{100c.pdf}
+\end{frame}
+
+\begin{frame}{Porównanie 3 operatorów: CX, OX, PMX; liczba udanych krzyżowań}
+  \includegraphics[scale=1.5]{010h.pdf}
+\end{frame}
+
+\begin{frame}{Porównanie 3 operatorów: CX, OX, PMX; liczba udanych krzyżowań}
+  \includegraphics[scale=1.5]{097h.pdf}
+\end{frame}
+
+\begin{frame}{Porównanie 3 operatorów: CX, OX, PMX; liczba udanych krzyżowań}
+  \includegraphics[scale=1.5]{098h.pdf}
+\end{frame}
+
+\begin{frame}{Porównanie 3 operatorów: CX, OX, PMX; liczba udanych krzyżowań}
+  \includegraphics[scale=1.5]{100h.pdf}
+\end{frame}
+
+\begin{frame}{Ile ewaluacji wykona algorytm aby dojść do 5\% odchylenia od optimum}
+  \includegraphics[scale=1.5]{096p.pdf}
+\end{frame}
+
+\begin{frame}{Ile ewaluacji wykona algorytm aby dojść do 5\% odchylenia od optimum}
+  \includegraphics[scale=1.5]{097p.pdf}
+\end{frame}
+
+\begin{frame}{Ile ewaluacji wykona algorytm aby dojść do 5\% odchylenia od optimum}
+  \includegraphics[scale=1.5]{098p.pdf}
+\end{frame}
+
+\begin{frame}{Ile ewaluacji wykona algorytm aby dojść do 5\% odchylenia od optimum}
+  \includegraphics[scale=1.5]{100p.pdf}
+\end{frame}
+
+\begin{frame}{Wariancja populacji}
+  \includegraphics[scale=1.5]{012v.pdf}
+\end{frame}
+
+\begin{frame}{Wariancja populacji}
+  \includegraphics[scale=1.5]{013v.pdf}
+\end{frame}
+
+\begin{frame}{Wariancja populacji}
+  \includegraphics[scale=1.5]{015v.pdf}
+\end{frame}
+
 \end{document}
